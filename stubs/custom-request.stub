@@ -1,0 +1,31 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Http\Requests\ApiRequest;
+
+class $CLASS_NAME$Request extends ApiRequest
+{
+    public function __construct()
+    {
+        parent::__construct('$PERMISSION$');
+    }
+
+    public function rules(): array
+    {
+        return [
+            'translates'        => ['required'],
+            'translates.*'      => ['required'],
+            'translates.*.name' => ['required'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'translates.required'        => helper()->translate('validator.Required'),
+            'translates.*.required'      => helper()->translate('validator.Required'),
+            'translates.*.name.required' => helper()->translate('validator.Required')
+        ];
+    }
+}
