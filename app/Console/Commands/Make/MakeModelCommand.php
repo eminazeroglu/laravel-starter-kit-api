@@ -43,10 +43,10 @@ class MakeModelCommand extends Command
 
         if ($back):
             if ($this->files->exists($path)):
-                $this->files->deleteDirectory($this->getSourcePath());
-                $this->info("Folder: ".$this->getSingularClassName($this->argument('name'))." deleted");
+                $this->files->delete($path);
+                $this->info("File : {$path} deleted");
             else:
-                $this->info("Folder: ".$this->getSingularClassName($this->argument('name'))." not exits");
+                $this->info("File : {$path} not exits");
             endif;
         else:
             if (!$this->files->exists($path)):
@@ -68,7 +68,7 @@ class MakeModelCommand extends Command
     {
         $name = $this->getSingularClassName($this->argument('name'));
         return [
-            'NAMESPACE'  => $this->nameSpace . '\\' . $name,
+            'NAMESPACE'  => $this->nameSpace,
             'CLASS_NAME' => $name,
             'PERMISSION' => str($this->argument('name'))->snake()
         ];
@@ -101,7 +101,7 @@ class MakeModelCommand extends Command
     public function getSourceFilePath(): string
     {
         $name = $this->getSingularClassName($this->argument('name'));
-        return base_path($this->path . $name . '\\' . $name . '.php');
+        return base_path($this->path . $name . '.php');
     }
 
     public function getSingularClassName($name): string

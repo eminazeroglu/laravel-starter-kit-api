@@ -49,7 +49,7 @@ class MakeModuleCommand extends Command
                 Artisan::call("make:custom_controller ${name} --back");
                 Artisan::call("make:custom_model ${name} --back");
                 Artisan::call("make:custom_request ${name} --back");
-                Artisan::call("make:custom_resource ${name} --back");
+                //Artisan::call("make:custom_resource ${name} --back");
                 Artisan::call("make:custom_seeder ${name} --back");
                 if (!$this->option('seeder-item'))
                     Artisan::call("make:custom_factory ${name} --back");
@@ -60,7 +60,7 @@ class MakeModuleCommand extends Command
                 Artisan::call("make:custom_controller ${name}");
                 Artisan::call("make:custom_model ${name}");
                 Artisan::call("make:custom_request ${name}");
-                Artisan::call("make:custom_resource ${name}");
+                //Artisan::call("make:custom_resource ${name}");
                 if ($this->option('seeder-item')):
                     Artisan::call("make:custom_seeder ${name}");
                 else:

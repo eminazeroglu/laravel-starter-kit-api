@@ -38,10 +38,10 @@ class MakeFactoryCommand extends Command
 
         if ($back):
             if ($this->files->exists($path)):
-                $this->files->deleteDirectory($this->getSourcePath());
-                $this->info("Folder: ".$this->getSingularClassName($this->argument('name'))." deleted");
+                $this->files->delete($path);
+                $this->info("File : {$path} deleted");
             else:
-                $this->info("Folder: ".$this->getSingularClassName($this->argument('name'))." not exits");
+                $this->info("File : {$path} not exits");
             endif;
         else:
             if (!$this->files->exists($path)):
@@ -63,7 +63,7 @@ class MakeFactoryCommand extends Command
     {
         $name = $this->getSingularClassName($this->argument('name'));
         return [
-            'NAMESPACE'  => 'Database\\Factories' . '\\' . $name,
+            'NAMESPACE'  => 'Database\\Factories',
             'CLASS_NAME' => $name,
         ];
     }
@@ -94,7 +94,7 @@ class MakeFactoryCommand extends Command
     public function getSourceFilePath(): string
     {
         $name = $this->getSingularClassName($this->argument('name'));
-        return base_path('Database\\Factories') . '\\' . $name . '\\' . $name . 'Factory.php';
+        return base_path('Database\\Factories') . '\\' . $name . 'Factory.php';
     }
 
     public function getSingularClassName($name): string

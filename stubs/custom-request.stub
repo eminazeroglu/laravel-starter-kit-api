@@ -2,8 +2,6 @@
 
 namespace $NAMESPACE$;
 
-use App\Http\Requests\ApiRequest;
-
 class $CLASS_NAME$Request extends ApiRequest
 {
     public function __construct()
