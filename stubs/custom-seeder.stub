@@ -2,7 +2,7 @@
 
 namespace $NAMESPACE$;
 
-use App\Models\$CLASS_NAME$\$CLASS_NAME$;
+use App\Models\$CLASS_NAME$;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -22,7 +22,7 @@ class $CLASS_NAME$Seeder extends Seeder
         $model->truncate();
         foreach ($this->items() as $index => $item):
             if ($item['name']):
-                $langs      = \App\Models\Language\Language::query()->pluck('code');
+                $langs      = \App\Models\Language::query()->pluck('code');
                 $translates = [];
                 foreach ($langs as $lang):
                     $translates[$lang] = [
