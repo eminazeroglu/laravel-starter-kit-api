@@ -34,7 +34,7 @@ class AuthService extends BaseModelService
     {
         $email    = $request->input('email');
         $password = $request->input('password');
-        $user     = $this->model->query()->query()->with(['permissions', 'permissionGroup'])->email($email)->first();
+        $user     = $this->model->query()->with(['permissions', 'permissionGroup'])->email($email)->first();
 
         if (Hash::check($password, $user->password)):
             if ($user->is_active == 0):
