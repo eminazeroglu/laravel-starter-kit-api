@@ -17,8 +17,8 @@ abstract class ApiController extends Controller implements ApiControllerInterfac
 
     public function __construct(BaseModelService $service, $permission)
     {
-        $this->service   = $service;
-        $this->prmission = $permission;
+        $this->service    = $service;
+        $this->permission = $permission;
         $this->addBindings();
     }
 
