@@ -3,7 +3,7 @@
 namespace $NAMESPACE$;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\$CLASS_NAME$\$CLASS_NAME$Request;
+use App\Http\Requests\$CLASS_NAME$Request;
 use App\Interfaces\ApiRequestInterface;
 use App\Services\Models\$CLASS_NAME$Service;
 

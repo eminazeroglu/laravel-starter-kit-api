@@ -21,16 +21,8 @@ class MakeModuleCommand extends Command
     {
         $argument   = mb_convert_case($this->argument('name'), MB_CASE_LOWER, 'UTF-8');
         $name       = str_replace(' ', null, ucwords(str_replace(['-', '_'], ' ', $argument)));
-        $lastLetter = substr($argument, -1);
-        if ($lastLetter == 'y'):
-            $argument = substr_replace($argument, 'ies', -1);
-        elseif ($lastLetter == 's'):
-            $argument = substr_replace($argument, 'ses', -1);
-        else:
-            $argument = $argument . 's';
-        endif;
 
-        $argument = str_replace(['_', '-'], '_', $argument);
+        $argument = str_replace(['_', '-'], '_', str($argument)->plural()->value());
 
         $existsMigrationFile = collect(File::allFiles('database/migrations'))
             ->map(function ($item) {

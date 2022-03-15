@@ -2,7 +2,7 @@
 
 namespace $NAMESPACE$;
 
-use App\Models\$CLASS_NAME$\$CLASS_NAME$;
+use App\Models\$CLASS_NAME$;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 

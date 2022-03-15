@@ -2,8 +2,6 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 class $CLASS_NAME$ extends BaseModel
 {
     protected $fillable   = [];

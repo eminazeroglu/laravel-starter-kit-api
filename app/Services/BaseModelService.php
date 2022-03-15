@@ -4,17 +4,16 @@ namespace App\Services;
 
 use App\Interfaces\BaseModelServiceInterface;
 use App\Services\System\ImageUploadService;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModelService implements BaseModelServiceInterface
 {
-    protected array $fields = [];
-    protected       $slug;
-    protected       $model;
-    protected       $resource_name;
-    protected       $imageService;
-    protected       $datatable;
+    protected array                     $fields = [];
+    protected                           $slug;
+    protected Model                     $model;
+    protected mixed                     $resource_name;
+    protected ImageUploadService        $imageService;
+    protected DataTable\DataGridService $datatable;
 
     public function __construct(Model $model, $resource_name = null)
     {
@@ -73,7 +72,7 @@ class BaseModelService implements BaseModelServiceInterface
     public function create($request)
     {
         $fields = $this->getFields($request);
-        $data = $this->model->query()->create($fields);
+        $data   = $this->model->query()->create($fields);
         return $this->resource($data, 'one');
     }
 
@@ -157,7 +156,7 @@ class BaseModelService implements BaseModelServiceInterface
 
     public function deleteAll()
     {
-        return $this->model->query()->truncate();
+        return $this->model->query()->delete();
     }
 
 }
