@@ -19,7 +19,7 @@ class $CLASS_NAME$Seeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         $model = new $CLASS_NAME$();
-        $model->truncate();
+        $model->query()->truncate();
         foreach ($this->items() as $index => $item):
             if ($item['name']):
                 $langs      = \App\Models\Language::query()->pluck('code');
@@ -29,7 +29,7 @@ class $CLASS_NAME$Seeder extends Seeder
                         'name' => $item['name']
                     ];
                 endforeach;
-                $model->insert([
+                $model->query()->insert([
                     'url'        => helper()->createSlug($model, array_first($translates)['name']),
                     'translates' => json_encode($translates),
                     'is_active'  => 1
