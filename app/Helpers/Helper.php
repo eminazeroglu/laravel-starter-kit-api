@@ -16,7 +16,7 @@ class Helper
      * */
     public function language()
     {
-        $lang = request()->header('accept-language') ?? 'az';
+        $lang = request()->header('content-language') ?? 'az';
         if ($lang):
             return $lang;
         endif;
