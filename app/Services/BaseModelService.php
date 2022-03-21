@@ -72,6 +72,7 @@ class BaseModelService implements BaseModelServiceInterface
     public function create($request)
     {
         $fields = $this->getFields($request);
+        if (in_array('user_id', $this->fields)) $fields['user_id'] = auth()->id();
         $data   = $this->model->query()->create($fields);
         return $this->resource($data, 'one');
     }
@@ -80,6 +81,7 @@ class BaseModelService implements BaseModelServiceInterface
     {
         $data   = $this->model->query()->findOrFail($id);
         $fields = $this->getFields($request, $data);
+        if (in_array('user_id', $this->fields)) $fields['user_id'] = auth()->id();
         $data->update($fields);
         return $this->resource($data, 'one');
     }
