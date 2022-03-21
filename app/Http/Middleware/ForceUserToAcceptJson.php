@@ -11,7 +11,7 @@ class ForceUserToAcceptJson
     {
         $acceptHeader = strtolower($request->headers->get('accept'));
 
-        if ('application/json' !== $acceptHeader && $request->expectsJson()):
+        if ('application/json' !== $acceptHeader):
             $request->headers->set('Accept', 'application/json');
         endif;
 
