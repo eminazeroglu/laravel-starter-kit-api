@@ -22,6 +22,11 @@ class BaseModel extends Model
         $this->imageService = new ImageUploadService();
     }
 
+    public function getFillable(): array
+    {
+        return $this->fillable;
+    }
+
     public function getPath(): string
     {
         return $this->path;

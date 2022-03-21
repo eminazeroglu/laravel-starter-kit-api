@@ -25,7 +25,7 @@ class BaseModelService implements BaseModelServiceInterface
 
     public function getFields(\App\Interfaces\ApiRequestInterface $request, $data = null): array
     {
-        $fields = $request->all();
+        $fields = $request->only($this->model->getFillable());
 
         if (isset($fields['translates'])):
             if ($this->slug && !$data && !$data?->{$this->slug}) $fields[$this->slug] = helper()->createSlug($this->model, array_first((array)$fields['translates'])['name'], $this->slug);
