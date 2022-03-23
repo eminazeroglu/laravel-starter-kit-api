@@ -105,9 +105,9 @@ class BaseModelService implements BaseModelServiceInterface
 
     public function findByUrl($url, $resource = false)
     {
-        $result = $this->resource($this->model->query()->where('url', $url)->firstOrFail());
+        $result = $this->model->query()->where('url', $url)->firstOrFail();
         if (is_array($url))
-            $result = $this->resource($this->model->query()->whereIn('url', $url)->get());
+            $result = $this->model->query()->whereIn('url', $url)->get();
         return $resource ? $this->resource($result) : $result;
     }
 
