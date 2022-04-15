@@ -12,6 +12,7 @@ abstract class ApiController extends Controller implements ApiControllerInterfac
 {
     protected       $service;
     protected array $bindings         = [];
+    protected array $events           = [];
     protected       $permission       = null;
     protected       $forbiddenMessage = 'You are not authorized to do this operation.';
 
@@ -45,32 +46,43 @@ abstract class ApiController extends Controller implements ApiControllerInterfac
 
     public function store(ApiRequestInterface $request)
     {
-        return response()->json($this->service->create($request));
+        $data = $this->service->create($request);
+        if (isset($this->events['store'])) event(new $this->events['store']($data, 'store'));
+        return response()->json($data);
     }
 
     public function update(ApiRequestInterface $request, $id)
     {
-        return response()->json($this->service->update($request, $id));
+        $data = $this->service->update($request, $id);
+        if (isset($this->events['update'])) event(new $this->events['update']($data, 'update'));
+        return response()->json($data);
     }
 
     public function destroy($id)
     {
-        if (helper()->can($this->permission, 'delete'))
-            return response()->json($this->service->deleteById($id));
+        if (helper()->can($this->permission, 'delete')):
+            $data = $this->service->deleteById($id);
+            if (isset($this->events['destroy'])) event(new $this->events['destroy']($data, 'destroy'));
+            return response()->json($data);
+        endif;
         return response()->json($this->forbiddenMessage, 403);
     }
 
     public function destroyAll()
     {
-        if (helper()->can($this->permission, 'delete'))
-            return response()->json($this->service->deleteAll());
+        if (helper()->can($this->permission, 'delete')):
+            $data = $this->service->deleteAll();
+            return response()->json($data);
+        endif;
         return response()->json($this->forbiddenMessage, 403);
     }
 
     public function action(Request $request, $id)
     {
-        if (helper()->can($this->permission, 'action'))
-            return response()->json($this->service->changeStatus($id, $request->action));
+        if (helper()->can($this->permission, 'action')):
+            $data = $this->service->changeStatus($id, $request->action);
+            return response()->json($data);
+        endif;
         return response()->json($this->forbiddenMessage, 403);
     }
 

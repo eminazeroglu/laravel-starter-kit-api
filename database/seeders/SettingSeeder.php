@@ -46,11 +46,13 @@ class SettingSeeder extends Seeder
             [
                 'key'         => 'logo',
                 'value_field' => json_encode([
-                    'logo'      => 'logo.png',
-                    'footer'    => 'footer.png',
-                    'mobile'    => 'mobile.png',
-                    'favicon'   => 'favicon.png',
-                    'wallpaper' => 'wallpaper.jpg',
+                    'logo'             => 'logo.png',
+                    'admin_logo'       => 'admin-logo.png',
+                    'admin_logo_color' => 'admin-logo-color.jpg',
+                    'footer'           => 'footer.png',
+                    'mobile'           => 'mobile.png',
+                    'favicon'          => 'favicon.png',
+                    'wallpaper'        => 'wallpaper.jpg',
                 ])
             ],
             [
@@ -72,7 +74,7 @@ class SettingSeeder extends Seeder
             [
                 'key'         => 'format',
                 'value_field' => json_encode([
-                    'file' => [
+                    'file'  => [
                         'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                         'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                         'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -86,7 +88,7 @@ class SettingSeeder extends Seeder
                 'key'         => 'mail',
                 'value_field' => json_encode([
                     'email' => 'no-replay@app.com',
-                    'name' => 'Application name'
+                    'name'  => 'Application name'
                 ])
             ],
             [

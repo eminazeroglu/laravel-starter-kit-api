@@ -38,8 +38,6 @@ class UserService extends BaseModelService
 
     public function findPaginateList($resource = false): array
     {
-        $this->datatable->start();
-
         $data = $this->model
             ->with('permissionGroup:id,translates')
             ->where('email', '!=', 'support@app.com')

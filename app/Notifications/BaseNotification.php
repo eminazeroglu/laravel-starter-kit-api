@@ -16,7 +16,7 @@ class BaseNotification extends Notification
 
     public function __construct($params)
     {
-        $this->mail   = optional((new SettingService())->getMail())?->value;
-        $this->params = $params;
+        $this->mail          = optional((new SettingService())->getMail())?->value;
+        $this->params        = $params;
     }
 }
