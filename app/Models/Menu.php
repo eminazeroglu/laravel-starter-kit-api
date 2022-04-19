@@ -28,4 +28,13 @@ class Menu extends BaseModel
     {
         return $q->where('link', 'like', '%' . $url . '%');
     }
+
+    public function scopeNameLike($q, $name)
+    {
+        return $q->where(function ($q) use ($name) {
+            foreach (helper()->languageWithCode() as $lang):
+                $q->where('translates->' . $lang . '->name', 'like', '%' . $name . '%');
+            endforeach;
+        });
+    }
 }

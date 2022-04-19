@@ -18,7 +18,7 @@ class User extends Authenticatable
         'permission_id',
         'language',
         'name',
-        'surname',
+        'surname',~
         'password',
         'photo_path',
     ];
@@ -33,6 +33,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = ['fullname', 'status'];
 
     protected ImageUploadService $imageService;
     protected string             $path = 'user';
@@ -61,6 +63,13 @@ class User extends Authenticatable
     {
         return new Attribute(
             get: fn() => $this->name . ' ' . $this->surname
+        );
+    }
+
+    public function status(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->is_active ? 'confirmed' : 'unconfirmed'
         );
     }
 

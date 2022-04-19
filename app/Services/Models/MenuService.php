@@ -14,11 +14,9 @@ class MenuService extends BaseModelService
 
     public function findPaginateList($resource = false): array
     {
-        $this->datatable->start();
-
         $data = $this->model->query()
-            ->when(request()->query('name'), function ($q) {
-                return $q->nameLike(request()->query('name'));
+            ->when(request()->query('q'), function ($q) {
+                return $q->nameLike(request()->query('q'));
             })
             ->oldest('position')
             ->paginate(request()->query('limit'));

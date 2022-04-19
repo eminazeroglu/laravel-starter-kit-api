@@ -41,6 +41,9 @@ class UserService extends BaseModelService
         $data = $this->model
             ->with('permissionGroup:id,translates')
             ->where('email', '!=', 'support@app.com')
+            ->when(request()->query('q'), function ($q) {
+                return $q->fullNameLike(request()->query('q'));
+            })
             ->when(request()->query('fullname'), function ($q) {
                 return $q->fullNameLike(request()->query('fullname'));
             })

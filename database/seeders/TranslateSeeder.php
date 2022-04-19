@@ -265,6 +265,10 @@ class TranslateSeeder extends Seeder
              * Enums
              * */
             [
+                'text' => 'Əməliyyatlar',
+                'key'  => 'enum.TableAction'
+            ],
+            [
                 'text' => 'Kişi',
                 'key'  => 'enum.Man'
             ],
@@ -283,6 +287,14 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Xeyr',
                 'key'  => 'enum.No'
+            ],
+            [
+                'text' => 'Təstiqlənmiş',
+                'key'  => 'enum.Confirmed'
+            ],
+            [
+                'text' => 'Təstiqlənməmiş',
+                'key'  => 'enum.Unconfirmed'
             ],
             /*
              * Route Tab
@@ -694,27 +706,7 @@ class TranslateSeeder extends Seeder
              * */
             [
                 'text' => 'Ad soyad',
-                'key'  => 'crm.User.Table.FullName'
-            ],
-            [
-                'text' => 'Email',
-                'key'  => 'crm.User.Table.Email'
-            ],
-            [
-                'text' => 'Provayder',
-                'key'  => 'crm.User.Table.Provider'
-            ],
-            [
-                'text' => 'Sistemdən',
-                'key'  => 'crm.User.Table.ProviderSimple'
-            ],
-            [
-                'text' => 'Səlahiyyət',
-                'key'  => 'crm.User.Table.Permission'
-            ],
-            [
-                'text' => 'Əməliyyatlar',
-                'key'  => 'crm.User.Table.Action'
+                'key'  => 'crm.User.Label.FullName'
             ],
             [
                 'text' => 'Email',
@@ -751,6 +743,10 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Dil',
                 'key'  => 'crm.User.Label.Language'
+            ],
+            [
+                'text' => 'Status',
+                'key'  => 'crm.User.Label.Status'
             ],
             /*
              * Permission Page
@@ -907,6 +903,10 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Adı',
                 'key' => 'crm.Menu.Label.Name'
+            ],
+            [
+                'text' => 'Üst menu',
+                'key' => 'crm.Menu.Label.Parent'
             ],
             [
                 'text' => 'Link',
