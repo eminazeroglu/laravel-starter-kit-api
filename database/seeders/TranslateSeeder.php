@@ -296,6 +296,10 @@ class TranslateSeeder extends Seeder
                 'text' => 'Təstiqlənməmiş',
                 'key'  => 'enum.Unconfirmed'
             ],
+            [
+                'text' => 'Seç',
+                'key'  => 'enum.Select'
+            ],
             /*
              * Route Tab
              * */

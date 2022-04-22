@@ -2,6 +2,7 @@
 
 namespace App\Services\Models;
 
+use App\Http\Resources\TranslateTableResource;
 use App\Models\Language;
 use App\Models\Translate;
 use App\Services\BaseModelService;
@@ -60,15 +61,15 @@ class LanguageService extends BaseModelService
 
     public function translateFindAll(): array
     {
-        $this->datatable->start();
-        $data = Translate::query()->groupBy('key')
+        $data = Translate::query()
+            ->groupBy('key')
             ->when(request()->query('key'), function ($q) {
                 $q->where('key', 'like', request()->query('key') . '%');
             })
             ->paginate(request()->query('limit'));
 
         return [
-            'data'  => $this->resource($data),
+            'data'  => TranslateTableResource::collection($data),
             'total' => $data->total()
         ];
     }
