@@ -875,31 +875,27 @@ class TranslateSeeder extends Seeder
              * */
             [
                 'text' => 'Link',
-                'key'  => 'crm.Seo.Table.Url'
+                'key'  => 'crm.SeoMetaTag.Label.Url'
             ],
             [
                 'text' => 'Səhifə başlığı',
-                'key'  => 'crm.Seo.Table.Title'
+                'key'  => 'crm.SeoMetaTag.Label.Title'
             ],
             [
                 'text' => 'Səhifə açıqlaması',
-                'key'  => 'crm.Seo.Table.Description'
+                'key'  => 'crm.SeoMetaTag.Label.Description'
             ],
             [
                 'text' => 'Səhifə üçün acar sözlər',
-                'key'  => 'crm.Seo.Table.Keywords'
-            ],
-            [
-                'text' => 'Səhifə üçün acar sözlər',
-                'key'  => 'crm.Seo.Table.Keywords'
+                'key'  => 'crm.SeoMetaTag.Label.Keywords'
             ],
             [
                 'text' => 'Əməliyyatlar',
-                'key'  => 'crm.Seo.Table.Action'
+                'key'  => 'crm.SeoMetaTag.Label.Action'
             ],
             [
                 'text' => 'Botlar',
-                'key'  => 'crm.Seo.Table.Bots'
+                'key'  => 'crm.SeoMetaTag.Label.Bots'
             ],
             /*
              * Menu Page
