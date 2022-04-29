@@ -6,7 +6,6 @@ use App\Models\Permission;
 use App\Models\PermissionGroup;
 use App\Models\PermissionPivotGroup;
 use App\Services\BaseModelService;
-use Illuminate\Support\Facades\DB;
 
 class PermissionService extends BaseModelService
 {
@@ -58,9 +57,9 @@ class PermissionService extends BaseModelService
         return $this->model->query()->whereNotIn('id', [1, 2])->delete();
     }
 
-    public function getPermissionList($group_id)
+    public function getPermissionList($group_id): \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|array
     {
-        $data = Permission::query()->get()->map(function ($item) use ($group_id) {
+        return Permission::query()->get()->map(function ($item) use ($group_id) {
             $find       = PermissionPivotGroup::where('permission_id', $item->id)->where('group_id', $group_id)->first();
             $itemOption = collect($item->option)->map(function ($i) {
                 return $i['value'];
@@ -88,31 +87,31 @@ class PermissionService extends BaseModelService
                 'action' => $option['action'],
             ];
         });
-        return $this->resource($data);
     }
 
-    public function setPermissionOptions($id, $request): \Illuminate\Database\Eloquent\Builder|array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+    public function setPermissionOptions($id, $request)
     {
-        $data = $this->model->query()->findOrFail($id);
-        $data->permissions()
+        $group = $this->model->query()->findOrFail($id);
+
+        $data = PermissionPivotGroup::query()
             ->wherePermissionId($request->permission_id)
             ->whereGroupId($id)
-            ->update([
+            ->first();
+
+        \Schema::disableForeignKeyConstraints();
+        if ($data):
+            $data->update([
                 'option_field' => json_encode($request->option)
             ]);
+        else:
+            $data = PermissionPivotGroup::query()->create([
+                'permission_id' => $request->permission_id,
+                'group_id'      => $group->id,
+                'option_field'  => json_encode($request->option),
+            ]);
+        endif;
+        \Schema::enableForeignKeyConstraints();
 
         return $data;
-
-        /*DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        $data                = PermissionPivotGroup::query()->wherePermissionId($id)->whereGroupId($request->group_id)->first();
-        $data                = $data ?? new PermissionPivotGroup();
-        $data->permission_id = $id;
-        $data->group_id      = $request->group_id;
-        $data->option_field  = json_encode($request->option);
-        $data->save();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-        return $data;*/
     }
 }

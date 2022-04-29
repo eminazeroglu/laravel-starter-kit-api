@@ -6,6 +6,12 @@ class PermissionPivotGroup extends BaseModel
 {
     public $timestamps = false;
 
+    protected $fillable = [
+        'permission_id',
+        'group_id',
+        'option_field',
+    ];
+
     public function permission(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Permission::class, 'id', 'permission_id');
