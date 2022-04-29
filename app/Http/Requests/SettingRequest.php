@@ -14,38 +14,36 @@ class SettingRequest extends ApiRequest
     public function generalRule(): array
     {
         return [
-            'value.language' => 'required|exists:languages,code'
+            'language' => 'required|exists:languages,code'
         ];
     }
 
     public function logoRule(): array
     {
         return [
-            'value.logo'      => ['nullable', new ImageBase64Rule],
-            'value.footer'    => ['nullable', new ImageBase64Rule],
-            'value.mobile'    => ['nullable', new ImageBase64Rule],
-            'value.favicon'   => ['nullable', new ImageBase64Rule],
-            'value.wallpaper' => ['nullable', new ImageBase64Rule],
+            'logo'      => ['nullable', new ImageBase64Rule],
+            'footer'    => ['nullable', new ImageBase64Rule],
+            'mobile'    => ['nullable', new ImageBase64Rule],
+            'favicon'   => ['nullable', new ImageBase64Rule],
+            'wallpaper' => ['nullable', new ImageBase64Rule],
         ];
     }
 
     public function rules(): array
     {
         $method = request()->key . 'Rule';
-        return array_merge([
-            'key' => 'required'
-        ], method_exists($this, $method) ? $this->$method() : []);
+        return method_exists($this, $method) ? $this->$method() : [];
     }
 
     public function messages(): array
     {
         return [
-            'value.language.required'     => helper()->translate('validator.Required'),
-            'value.logo.base64image'      => helper()->translate('validator.Image'),
-            'value.footer.base64image'    => helper()->translate('validator.Image'),
-            'value.mobile.base64image'    => helper()->translate('validator.Image'),
-            'value.favicon.base64image'   => helper()->translate('validator.Image'),
-            'value.wallpaper.base64image' => helper()->translate('validator.Image'),
+            'language.required'     => helper()->translate('validator.Required'),
+            'logo.base64image'      => helper()->translate('validator.Image'),
+            'footer.base64image'    => helper()->translate('validator.Image'),
+            'mobile.base64image'    => helper()->translate('validator.Image'),
+            'favicon.base64image'   => helper()->translate('validator.Image'),
+            'wallpaper.base64image' => helper()->translate('validator.Image'),
         ];
     }
 }

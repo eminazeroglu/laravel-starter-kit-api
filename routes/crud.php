@@ -30,7 +30,7 @@ Route::controller(PermissionController::class)->group(function () {
 Route::resource('permissions', PermissionController::class);
 
 // Setting
-Route::resource('setting', SettingController::class);
+Route::resource('settings', SettingController::class)->only(['show', 'update']);
 
 // Seo Meta Tags
 Route::resource('seo-meta-tags', SeoMetaTagController::class);

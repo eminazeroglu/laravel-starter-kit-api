@@ -10,6 +10,9 @@ class Setting extends BaseModel
     protected     $appends    = ['value', 'photo'];
     public        $timestamps = false;
     public string $path       = 'setting';
+    protected $fillable = [
+        'value_field'
+    ];
 
     public function value(): Attribute
     {

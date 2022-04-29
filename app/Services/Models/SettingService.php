@@ -87,4 +87,16 @@ class SettingService extends BaseModelService
         $method = camel_case('get-' . $id);
         return $this->$method();
     }
+
+    /*
+     * Update
+     * */
+    public function update($request, $id)
+    {
+        $data   = $this->model->query()->where('key', $id)->firstOrFail();
+        $data->update([
+            'value_field' => json_encode($request->all())
+        ]);
+        return $data;
+    }
 }
