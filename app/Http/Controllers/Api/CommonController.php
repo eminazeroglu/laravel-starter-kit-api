@@ -10,17 +10,19 @@ use App\Services\Models\SettingService;
 
 class CommonController extends Controller
 {
-    public function start(SettingService $settingService, MenuService $menuService)
+    public function start(SettingService $settingService, MenuService $menuService): \Illuminate\Http\JsonResponse
     {
         $data      = $settingService->getLogo();
         $menus     = $menuService->findAll();
         $languages = Language::query()->with('translates')->active()->get();
         $result    = [
             'photos'    => [
-                'logo'      => url('uploads/photos/setting/' . $data['value']['logo']),
-                'footer'    => url('uploads/photos/setting/' . $data['value']['footer']),
-                'favicon'   => url('uploads/photos/setting/' . $data['value']['favicon']),
-                'wallpaper' => url('uploads/photos/setting/' . $data['value']['wallpaper'])
+                'logo'          => url('uploads/photos/setting/' . $data['value']['logo']),
+                'footer'        => url('uploads/photos/setting/' . $data['value']['footer']),
+                'favicon'       => url('uploads/photos/setting/' . $data['value']['favicon']),
+                'wallpaper'     => url('uploads/photos/setting/' . $data['value']['wallpaper']),
+                'default_user'  => url('uploads/photos/setting/default_user.webp'),
+                'default_photo' => url('uploads/photos/setting/default_photo.webp'),
             ],
             'languages' => $languages
         ];
@@ -33,7 +35,7 @@ class CommonController extends Controller
         return response()->json($result);
     }
 
-    public function seo(SeoMetaTagService $seoMetaTagService, $link = null)
+    public function seo(SeoMetaTagService $seoMetaTagService, $link = null): \Illuminate\Http\JsonResponse
     {
         $data = $seoMetaTagService->findByUrl('/' . $link);
         return response()->json($data);

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class GeneralController extends Controller
 {
-    public function start(LanguageService $languageService)
+    public function start(LanguageService $languageService): \Illuminate\Http\JsonResponse
     {
         $driver    = env('FILESYSTEM_DRIVER');
         $languages = $languageService->getListWithTranslate();
@@ -26,7 +26,7 @@ class GeneralController extends Controller
         ], 200);
     }
 
-    public function artisan($params = null)
+    public function artisan($params = null): string
     {
         helper()->cacheRemove('translates');
         Artisan::call('cache:clear');

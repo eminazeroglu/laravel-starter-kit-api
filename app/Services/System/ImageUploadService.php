@@ -388,7 +388,7 @@ class ImageUploadService
                      * Sekil yuklendikde silinmesini istediyimiz
                      * sekilin adini yaziriq
                      * */
-                    if ($this->remove):
+                    if ($this->remove && ($nameWithExtension !== $this->remove)):
                         $this->delete($path, $this->remove);
                     endif;
                     /*

@@ -851,6 +851,14 @@ class TranslateSeeder extends Seeder
                 'key'  => 'crm.Setting.Label.Wallpaper'
             ],
             [
+                'text' => 'Admin panel giriş logosu',
+                'key'  => 'crm.Setting.Label.AdminLogin'
+            ],
+            [
+                'text' => 'Admin panel esas logo',
+                'key'  => 'crm.Setting.Label.AdminMain'
+            ],
+            [
                 'text' => 'head etiketi',
                 'key'  => 'crm.Setting.Label.HeadTag'
             ],

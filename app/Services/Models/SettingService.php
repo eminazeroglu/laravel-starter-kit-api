@@ -93,10 +93,32 @@ class SettingService extends BaseModelService
      * */
     public function update($request, $id)
     {
-        $data   = $this->model->query()->where('key', $id)->firstOrFail();
-        $data->update([
-            'value_field' => json_encode($request->all())
-        ]);
+        $data = $this->model->query()->where('key', $id)->firstOrFail();
+
+        if ($data->key === 'logo'):
+            $result = [];
+            foreach ($request->all() as $key => $value):
+                $result[$key] = '';
+                if ($value):
+                    $photo = $this->imageService
+                        ->setFile($value)
+                        ->setBase64(true)
+                        ->setPath($this->model->getPath())
+                        ->setName($key)
+                        ->setRemoveFile($data->value[$key])
+                        ->upload();
+                    if ($photo) $result[$key] = $photo;
+                endif;
+            endforeach;
+            $data->update([
+                'value_field' => json_encode($result)
+            ]);
+        else:
+            $data->update([
+                'value_field' => json_encode($request->all())
+            ]);
+        endif;
+
         return $data;
     }
 }
