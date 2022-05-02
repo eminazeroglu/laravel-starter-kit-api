@@ -13,14 +13,12 @@ class BaseModelService implements BaseModelServiceInterface
     protected Model                     $model;
     protected mixed                     $resource_name;
     protected ImageUploadService        $imageService;
-    protected DataTable\DataGridService $datatable;
 
     public function __construct(Model $model, $resource_name = null)
     {
         $this->model         = $model;
         $this->resource_name = $resource_name;
         $this->imageService  = new ImageUploadService();
-        $this->datatable     = (new \App\Services\DataTable\DataGridService());
     }
 
     public function getFields(\App\Interfaces\ApiRequestInterface $request, $data = null): array
@@ -119,10 +117,9 @@ class BaseModelService implements BaseModelServiceInterface
 
     public function findPaginateList($resource = false): array|string
     {
-        $this->datatable->start();
         $data = $this->model->query()
-            ->when(request()->query('name'), function ($q) {
-                return $q->nameLike(request()->query('name'));
+            ->when(request()->query('q'), function ($q) {
+                return $q->nameLike(request()->query('q'));
             })
             ->latest('id')
             ->paginate(request()->query('limit'));

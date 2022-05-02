@@ -46,8 +46,6 @@ class SeoMetaTagService extends BaseModelService
 
     public function findPaginateList($resource = false): array
     {
-        $this->datatable->start();
-
         $data = $this->model
             ->when(request()->query('title'), function ($q) {
                 return $q->where('title', 'like', '%' . request()->query('title') . '%');

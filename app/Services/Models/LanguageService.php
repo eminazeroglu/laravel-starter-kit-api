@@ -28,8 +28,6 @@ class LanguageService extends BaseModelService
 
     public function findPaginateList($resource = false): array
     {
-        $this->datatable->start();
-
         $data = $this->model->query()
             ->when(request()->query('name'), function ($q) {
                 return $q->nameLike(request()->query('name'));
