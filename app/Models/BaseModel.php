@@ -11,9 +11,13 @@ class BaseModel extends Model
 {
     use HasFactory;
 
-    protected                 $hidden  = ['translates', 'created_at', 'updated_at'];
+    protected                 $hidden  = ['translates', 'created_at', 'updated_at', 'deleted_at'];
     public ImageUploadService $imageService;
     public string             $path;
+
+    protected $casts = [
+        'translates' => 'object'
+    ];
 
     public function __construct(array $attributes = [])
     {
@@ -42,7 +46,7 @@ class BaseModel extends Model
     public function photo(): Attribute
     {
         return new Attribute(
-            get: fn() => $this->imageService->getPhoto($this->path, $this->photo_name)
+            get: fn() => $this->imageService->getPhoto($this->path, $this->photo_path)
         );
     }
 

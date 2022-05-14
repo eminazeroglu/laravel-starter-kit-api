@@ -30,8 +30,8 @@ class PermissionService extends BaseModelService
     public function findPaginateList($resource = false): array
     {
         $data = $this->model
-            ->when(request()->query('name'), function ($q) {
-                return $q->where('name', 'like', '%' . request()->query('name') . '%');
+            ->when(request()->query('q'), function ($q) {
+                return $q->where('name', 'like', '%' . request()->query('q') . '%');
             })
             ->latest('id')
             ->paginate(request()->query('limit'));
@@ -87,7 +87,7 @@ class PermissionService extends BaseModelService
         });
     }
 
-    public function setPermissionOptions($id, $request)
+    public function setPermissionOptions($id, $request): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder
     {
         $group = $this->model->query()->findOrFail($id);
 

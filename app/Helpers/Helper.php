@@ -29,7 +29,7 @@ class Helper
     public function modelTranslate($data, $value)
     {
         $lang = $this->language();
-        $data = json_decode($data, true);
+        $data = json_decode(json_encode($data), true);
         if (isset($data[$lang])) return $data[$lang][$value];
         return null;
     }

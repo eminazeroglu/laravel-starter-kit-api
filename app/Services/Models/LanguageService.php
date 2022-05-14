@@ -29,8 +29,8 @@ class LanguageService extends BaseModelService
     public function findPaginateList($resource = false): array
     {
         $data = $this->model->query()
-            ->when(request()->query('name'), function ($q) {
-                return $q->nameLike(request()->query('name'));
+            ->when(request()->query('q'), function ($q) {
+                return $q->nameLike(request()->query('q'));
             })
             ->when(request()->query('code'), function ($q) {
                 return $q->codeLike(request()->query('code'));

@@ -30,11 +30,11 @@ class MenuSeeder extends Seeder
                         'name' => $item['name']
                     ];
                 endforeach;
-                $model->insert([
+                $model->create([
                     'link'       => $item['link'],
                     'type'       => $item['type'],
                     'position'   => $index + 1,
-                    'translates' => json_encode($translates),
+                    'translates' => $translates,
                     'is_active'  => 1
                 ]);
             endif;

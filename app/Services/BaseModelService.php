@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModelService implements BaseModelServiceInterface
 {
-    protected array                     $fields = [];
-    protected                           $slug;
-    protected Model                     $model;
-    protected mixed                     $resource_name;
-    protected ImageUploadService        $imageService;
+    protected array              $fields              = [];
+    protected                    $slug;
+    protected                    $slug_key            = 'name';
+    protected                    $photo_request_field = 'photo';
+    protected                    $photo_field         = 'photo_path';
+    protected                    $code_field          = 'code';
+    protected                    $generateCode        = false;
+    protected                    $uploadPhoto         = false;
+    protected Model              $model;
+    protected mixed              $resource_name;
+    protected ImageUploadService $imageService;
 
     public function __construct(Model $model, $resource_name = null)
     {
@@ -25,9 +31,20 @@ class BaseModelService implements BaseModelServiceInterface
     {
         $fields = $request->only($this->model->getFillable());
 
-        if (isset($fields['translates'])):
-            if ($this->slug && !$data && !$data?->{$this->slug}) $fields[$this->slug] = helper()->createSlug($this->model, array_first((array)$fields['translates'])['name'], $this->slug);
-            $fields['translates'] = json_encode($fields['translates']);
+        if (request()->translates):
+            if ($this->slug && !$data?->{$this->slug}):
+                $fields[$this->slug] = helper()->createSlug($this->model, array_first((array)request()->translates)[$this->slug_key], $this->slug);
+            endif;
+        elseif ($this->slug && !$data?->{$this->slug}):
+            $fields[$this->slug] = request()->input($this->slug_key);
+        endif;
+
+        if ($this->generateCode && !$data?->{$this->code_field}):
+            $fields[$this->code_field] = helper()->uniqueNumber($this->model, 8, $this->code_field);
+        endif;
+
+        if ($this->uploadPhoto && request()->input($this->photo_request_field)):
+            $fields[$this->photo_field] = $this->uploadPhoto(request()->input($this->photo_request_field), $this->photo_field);
         endif;
 
         if (count($this->fields) > 0):
@@ -43,7 +60,7 @@ class BaseModelService implements BaseModelServiceInterface
         endif;
     }
 
-    public function uploadPhoto($value, $field = 'photo_path'): ?string
+    public function uploadPhoto($value, $field = 'photo'): ?string
     {
         if ($value):
             $photo = $this->imageService
@@ -71,7 +88,7 @@ class BaseModelService implements BaseModelServiceInterface
     {
         $fields = $this->getFields($request);
         if (in_array('user_id', $this->fields)) $fields['user_id'] = auth()->id();
-        $data   = $this->model->query()->create($fields);
+        $data = $this->model->query()->create($fields);
         return $this->resource($data, 'one');
     }
 
@@ -115,7 +132,7 @@ class BaseModelService implements BaseModelServiceInterface
         return $resource ? $this->resource($data, 'list') : $data;
     }
 
-    public function findPaginateList($resource = false): array|string
+    public function findPaginateList($resource = false)
     {
         $data = $this->model->query()
             ->when(request()->query('q'), function ($q) {
@@ -157,5 +174,4 @@ class BaseModelService implements BaseModelServiceInterface
     {
         return $this->model->query()->delete();
     }
-
 }

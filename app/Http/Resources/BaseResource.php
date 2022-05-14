@@ -13,10 +13,6 @@ class BaseResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $result = parent::toArray($request);
-        if ($this->translates):
-            $result['translates'] = json_decode($this->translates, true);
-        endif;
-        return $result;
+        return parent::toArray($request);
     }
 }

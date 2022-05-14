@@ -22,7 +22,7 @@ class $CLASS_NAME$Service extends BaseModelService
             ->paginate(request()->query('limit'));
 
         return [
-            'data'  => $this->resource($data, 'table'),
+            'data'  => $this->resource($data),
             'total' => $data->total()
         ];
     }
