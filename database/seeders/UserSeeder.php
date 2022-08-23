@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
-use Schema;
+use Illuminate\Support\Facades\Schema;
 
 class UserSeeder extends Seeder
 {
@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
         $user = new User();
         $user->truncate();
         $this->defaultUser();
-        // $this->randomUser();
+        $this->randomUser();
         Schema::enableForeignKeyConstraints();
     }
 }

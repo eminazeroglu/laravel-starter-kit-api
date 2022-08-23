@@ -12,7 +12,13 @@ class Menu extends BaseModel
         'translates',
     ];
     protected     $appends  = ['photo', 'name'];
+    protected     $with     = ['parent'];
     public string $path     = 'menu';
+
+    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Menu::class);
+    }
 
     public function scopeType($q, $type)
     {

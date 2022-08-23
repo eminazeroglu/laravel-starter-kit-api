@@ -13,7 +13,7 @@ class PermissionService extends BaseModelService
 
     public function __construct()
     {
-        parent::__construct(new PermissionGroup(), 'Permission');
+        parent::__construct(new PermissionGroup());
     }
 
     public function changeStatus($id, $action = 'is_active')

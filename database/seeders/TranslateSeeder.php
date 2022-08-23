@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Translate;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
-use Schema;
+use Illuminate\Support\Facades\Schema;
 
 class TranslateSeeder extends Seeder
 {
@@ -119,8 +119,12 @@ class TranslateSeeder extends Seeder
                 'key'  => 'datatable.FormHead'
             ],
             [
-                'text' => 'Hər səhifədə {menu} məlumat göstərilir',
-                'key'  => 'datatable.LengthMenu'
+                'text' => 'Hər səhifədə',
+                'key'  => 'datatable.LengthMenu1'
+            ],
+            [
+                'text' => 'məlumat göstərilir',
+                'key'  => 'datatable.LengthMenu2'
             ],
             [
                 'text' => 'Məlumat limiti',
@@ -255,11 +259,31 @@ class TranslateSeeder extends Seeder
             ],
             [
                 'text' => 'Bu gün',
-                'key'  => 'date.Day.ToDay'
+                'key'  => 'date.ToDay'
             ],
             [
                 'text' => 'Dünən',
-                'key'  => 'date.Day.Yesterday'
+                'key'  => 'date.Yesterday'
+            ],
+            [
+                'text' => 'Son 7 gün',
+                'key'  => 'date.Last7Days'
+            ],
+            [
+                'text' => 'Son 30 gün',
+                'key'  => 'date.Day.Last30Days'
+            ],
+            [
+                'text' => 'Cari ay',
+                'key'  => 'date.Day.ThisMonth'
+            ],
+            [
+                'text' => 'Keçən ay',
+                'key'  => 'date.Day.LastMonth'
+            ],
+            [
+                'text' => 'Hamısı',
+                'key'  => 'date.All'
             ],
             /*
              * Enums
@@ -299,25 +323,6 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Seç',
                 'key'  => 'enum.Select'
-            ],
-            /*
-             * Route Tab
-             * */
-            [
-                'text' => 'Yenilə',
-                'key'  => 'routeTab.Reload'
-            ],
-            [
-                'text' => 'Bağla',
-                'key'  => 'routeTab.Close'
-            ],
-            [
-                'text' => 'Sağ tərəfdəkiləri bağla',
-                'key'  => 'routeTab.RightClose'
-            ],
-            [
-                'text' => 'Hamsını bağla',
-                'key'  => 'routeTab.AllClose'
             ],
             /*
              * Notification
@@ -386,6 +391,10 @@ class TranslateSeeder extends Seeder
                 'key'  => 'button.Register'
             ],
             [
+                'text' => 'Şifrəni unutmusunuz?',
+                'key'  => 'button.ForgetPassword'
+            ],
+            [
                 'text' => 'Yadda saxla',
                 'key'  => 'button.Save'
             ],
@@ -400,6 +409,14 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Mövcud hesaba daxil ol',
                 'key'  => 'button.HasLogin'
+            ],
+            [
+                'text' => 'Bəli',
+                'key'  => 'button.Yes'
+            ],
+            [
+                'text' => 'Xeyr',
+                'key'  => 'button.No'
             ],
             [
                 'text' => 'Razıyam',
@@ -528,8 +545,16 @@ class TranslateSeeder extends Seeder
              * Login
              * */
             [
-                'text' => 'Hesabınıza daxil olun',
-                'key'  => 'login.Head.Text'
+                'text' => 'Daxil ol | CRM-ə Xoş gəldiniz',
+                'key'  => 'login.Text.Title'
+            ],
+            [
+                'text' => 'Xoş gəldiniz, zəhmət olmasa, hesabınıza daxil olun',
+                'key'  => 'login.Text.SubTitle'
+            ],
+            [
+                'text' => 'Hesabınız yoxdur?',
+                'key'  => 'login.Text.FootTitle'
             ],
             [
                 'text' => 'Email',
@@ -595,6 +620,10 @@ class TranslateSeeder extends Seeder
             /*
              * CRM Header
              * */
+            [
+                'text' => 'Saat',
+                'key'  => 'crm.Header.Label.Clock'
+            ],
             [
                 'text' => 'Şəxsi kabinet',
                 'key'  => 'crm.Header.Label.Profile'
@@ -731,10 +760,6 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Soyad',
                 'key'  => 'crm.User.Label.Surname'
-            ],
-            [
-                'text' => 'Səlahiyyət',
-                'key'  => 'crm.User.Label.Permission'
             ],
             [
                 'text' => 'Mövcud şifrə',
@@ -925,12 +950,12 @@ class TranslateSeeder extends Seeder
                 'key' => 'crm.Menu.Label.Type'
             ],
             [
-                'text' => 'Daxili link',
-                'key' => 'crm.Menu.Label.Route'
-            ],
-            [
                 'text' => 'Sıra',
                 'key' => 'crm.Menu.Label.Position'
+            ],
+            [
+                'text' => 'Status',
+                'key' => 'crm.Menu.Label.Status'
             ],
             [
                 'text' => 'Əməliyyatlar',

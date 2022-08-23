@@ -18,7 +18,7 @@ class User extends Authenticatable
         'permission_id',
         'language',
         'name',
-        'surname',~
+        'surname',
         'password',
         'photo_path',
     ];

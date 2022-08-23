@@ -9,7 +9,7 @@ class MenuService extends BaseModelService
 {
     public function __construct()
     {
-        parent::__construct(new Menu(), 'Menu');
+        parent::__construct(new Menu());
     }
 
     public function findPaginateList($resource = false): array

@@ -9,7 +9,7 @@ class SettingService extends BaseModelService
 {
     public function __construct()
     {
-        parent::__construct(new Setting(), 'Setting');
+        parent::__construct(new Setting());
     }
 
     /*

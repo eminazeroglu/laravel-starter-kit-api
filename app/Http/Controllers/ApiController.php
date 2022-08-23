@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 abstract class ApiController extends Controller implements ApiControllerInterface
 {
-    protected       $service;
+    protected BaseModelService $service;
     protected array $bindings         = [];
     protected array $events           = [];
     protected       $permission       = null;

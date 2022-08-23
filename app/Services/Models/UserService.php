@@ -10,11 +10,12 @@ class UserService extends BaseModelService
 {
     public function __construct()
     {
-        $this->setFields([
+        $fields = [
             'photo_path' => $this->uploadPhoto(request()->photo_path),
-            'password'   => bcrypt(request()->password)
-        ]);
-        parent::__construct(new User(), 'User');
+        ];
+        if (request()->password) $fields['password'] = bcrypt(request()->password);
+        $this->setFields($fields);
+        parent::__construct(new User());
     }
 
     /*
@@ -41,20 +42,14 @@ class UserService extends BaseModelService
         $data = $this->model
             ->with('permissionGroup:id,translates')
             ->where('email', '!=', 'support@app.com')
-            ->when(request()->query('q'), function ($q) {
-                return $q->fullNameLike(request()->query('q'));
-            })
             ->when(request()->query('fullname'), function ($q) {
                 return $q->fullNameLike(request()->query('fullname'));
             })
             ->when(request()->query('email'), function ($q) {
                 return $q->emailLike(request()->query('email'));
             })
-            ->when(request()->query('type') === 'admin', function ($q) {
-                return $q->onlyAdmin();
-            })
-            ->when(request()->query('type') === 'user', function ($q) {
-                return $q->onlyUser();
+            ->when(request()->query('permission'), function ($q) {
+                return $q->where('permission_id', request()->query('permission'));
             })
             ->latest('id')
             ->paginate(request()->query('limit'));

@@ -12,7 +12,7 @@ class LanguageService extends BaseModelService
 {
     public function __construct()
     {
-        parent::__construct(new Language(), 'Language');
+        parent::__construct(new Language());
     }
 
     public function changeStatus($id, $action = 'is_active')

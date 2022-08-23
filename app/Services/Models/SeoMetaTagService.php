@@ -13,7 +13,7 @@ class SeoMetaTagService extends BaseModelService
         $this->setFields([
             'bots' => json_encode(request()->bots)
         ]);
-        parent::__construct(new SeoMetaTag(), 'SeoMetaTag');
+        parent::__construct(new SeoMetaTag());
     }
 
     public function getUrl($url, $select = ['*'], $insert = true): Model

@@ -13,6 +13,12 @@ class MenuSeeder extends Seeder
         return [
             ['name' => 'Ana səhifə', 'link' => '/', 'type' => 'header'],
             ['name' => 'Haqqımızda', 'link' => '/about', 'type' => 'header'],
+            ['name' => 'Ana səhifə', 'link' => '/', 'type' => 'header'],
+            ['name' => 'Haqqımızda', 'link' => '/about', 'type' => 'header'],
+            ['name' => 'Ana səhifə', 'link' => '/', 'type' => 'header'],
+            ['name' => 'Haqqımızda', 'link' => '/about', 'type' => 'header'],
+            ['name' => 'Ana səhifə', 'link' => '/', 'type' => 'header'],
+            ['name' => 'Haqqımızda', 'link' => '/about', 'type' => 'header'],
         ];
     }
 

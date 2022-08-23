@@ -17,13 +17,11 @@ class BaseModelService implements BaseModelServiceInterface
     protected                    $generateCode        = false;
     protected                    $uploadPhoto         = false;
     protected Model              $model;
-    protected mixed              $resource_name;
     protected ImageUploadService $imageService;
 
-    public function __construct(Model $model, $resource_name = null)
+    public function __construct(Model $model)
     {
         $this->model         = $model;
-        $this->resource_name = $resource_name;
         $this->imageService  = new ImageUploadService();
     }
 
