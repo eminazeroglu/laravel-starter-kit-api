@@ -10,10 +10,11 @@ class UserService extends BaseModelService
 {
     public function __construct()
     {
+        $user = User::query()->find(request()->id);
         $fields = [
             'photo_path' => $this->uploadPhoto(request()->photo_path),
+            'password' => request()->password ? bcrypt(request()->password) : $user->password ?? ''
         ];
-        if (request()->password) $fields['password'] = bcrypt(request()->password);
         $this->setFields($fields);
         parent::__construct(new User());
     }

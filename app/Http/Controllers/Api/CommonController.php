@@ -17,8 +17,10 @@ class CommonController extends Controller
         $languages = Language::query()->with('translates')->active()->get();
         $result    = [
             'photos' => [
-                'admin_logo_dark' => url('uploads/photos/setting/' . $data['value']['admin_logo_dark']),
-                'admin_logo_light' => url('uploads/photos/setting/' . $data['value']['admin_logo_light']),
+                'admin_logo_dark' => url('uploads/photos/setting/' . @$data['value']['admin_logo_dark'] ?? 'default_photo.webp'),
+                'admin_logo_light' => url('uploads/photos/setting/' . @$data['value']['admin_logo_light'] ?? 'default_photo.webp'),
+                'default_photo' => url('uploads/photos/setting/default_photo.webp'),
+                'default_user' => url('uploads/photos/setting/default_user.webp'),
             ],
             'language' => helper()->language(),
             'languages' => $languages

@@ -98,14 +98,14 @@ class SettingService extends BaseModelService
         if ($data->key === 'logo'):
             $result = [];
             foreach ($request->all() as $key => $value):
-                $result[$key] = '';
+                $result[$key] = $data->value[$key] ?? '';
                 if ($value):
                     $photo = $this->imageService
                         ->setFile($value)
                         ->setBase64(true)
                         ->setPath($this->model->getPath())
                         ->setName($key)
-                        ->setRemoveFile($data->value[$key])
+                        ->setRemoveFile($data->value[$key] ?? '')
                         ->upload();
                     if ($photo) $result[$key] = $photo;
                 endif;

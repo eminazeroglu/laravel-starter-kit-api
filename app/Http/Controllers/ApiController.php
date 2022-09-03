@@ -33,7 +33,7 @@ abstract class ApiController extends Controller implements ApiControllerInterfac
     public function select()
     {
         if (helper()->can($this->permission) > 1)
-            return response()->json($this->service->findAll(true));
+            return response()->json($this->service->findActiveList(true));
         return response()->json($this->forbiddenMessage, 403);
     }
 

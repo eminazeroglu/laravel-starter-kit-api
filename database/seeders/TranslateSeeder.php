@@ -328,7 +328,7 @@ class TranslateSeeder extends Seeder
              * Notification
              * */
             [
-                'text' => 'Xəbərdarlıq',
+                'text' => 'Bildiriş',
                 'key'  => 'notification.Warning.Title'
             ],
             [
@@ -378,6 +378,10 @@ class TranslateSeeder extends Seeder
             [
                 'text' => 'Sizin sistemə daxil olmaq üçün içazəniz yoxdur.',
                 'key'  => 'notification.UserNotAccess.Description'
+            ],
+            [
+                'text' => 'Əməliyyat uğurla tamamlandı!',
+                'key'  => 'notification.ActionSuccess'
             ],
             /*
              * Button
@@ -541,6 +545,10 @@ class TranslateSeeder extends Seeder
                 'text' => 'Zəhmət olmasa :label formatında şəkil yükləyin',
                 'key'  => 'component.FileTypeError'
             ],
+            [
+                'text' => 'Zəhmət olmasa :label formatında şəkil yükləyin',
+                'key'  => 'component.FileTypeError'
+            ],
             /*
              * Login
              * */
@@ -653,43 +661,43 @@ class TranslateSeeder extends Seeder
             ],
             [
                 'text' => 'Dillər',
-                'key'  => 'crm.Sidebar.SettingLanguages'
+                'key'  => 'crm.Sidebar.Languages'
             ],
             [
                 'text' => 'Tərçümələr',
-                'key'  => 'crm.Sidebar.SettingTranslates'
+                'key'  => 'crm.Sidebar.Translates'
             ],
             [
                 'text' => 'Səlahiyyətlər',
-                'key'  => 'crm.Sidebar.SettingPermissions'
+                'key'  => 'crm.Sidebar.Permissions'
             ],
             [
                 'text' => 'Səlahiyyət parametirləri',
-                'key'  => 'crm.Sidebar.SettingPermissionsParams'
+                'key'  => 'crm.Sidebar.PermissionsParams'
             ],
             [
                 'text' => 'Əsas ayarlar',
-                'key'  => 'crm.Sidebar.SettingMain'
+                'key'  => 'crm.Sidebar.Main'
             ],
             [
                 'text' => 'İş vaxtı',
-                'key'  => 'crm.Sidebar.SettingWorkTime'
+                'key'  => 'crm.Sidebar.WorkTime'
             ],
             [
                 'text' => 'Logo',
-                'key'  => 'crm.Sidebar.SettingLogo'
+                'key'  => 'crm.Sidebar.Logo'
             ],
             [
                 'text' => 'Html etiket',
-                'key'  => 'crm.Sidebar.SettingHtml'
+                'key'  => 'crm.Sidebar.Html'
             ],
             [
                 'text' => 'Sosial səhifələr',
-                'key'  => 'crm.Sidebar.SettingSocialPage'
+                'key'  => 'crm.Sidebar.SocialPage'
             ],
             [
                 'text' => 'SEO',
-                'key'  => 'crm.Sidebar.SettingSeoMetaTag'
+                'key'  => 'crm.Sidebar.SeoMetaTag'
             ],
             [
                 'text' => 'Menular',
@@ -734,6 +742,14 @@ class TranslateSeeder extends Seeder
                 'text' => 'Kodu',
                 'key'  => 'crm.Language.Label.Code'
             ],
+            [
+                'text' => 'Status',
+                'key'  => 'crm.Language.Label.Status'
+            ],
+            [
+                'text' => 'Tərçümə filtirləri',
+                'key'  => 'crm.Language.Label.TranslateKey'
+            ],
             /*
              * User Page
              * */
@@ -777,48 +793,52 @@ class TranslateSeeder extends Seeder
                 'text' => 'Status',
                 'key'  => 'crm.User.Label.Status'
             ],
+            [
+                'text' => 'Sistemdəki statusu',
+                'key'  => 'crm.User.Label.SystemStatus'
+            ],
             /*
              * Permission Page
              * */
             [
                 'text' => 'Adı',
-                'key'  => 'crm.Permission.Table.Name'
+                'key'  => 'crm.Permission.Label.Name'
+            ],
+            [
+                'text' => 'Status',
+                'key'  => 'crm.Permission.Label.Status'
             ],
             [
                 'text' => 'Əməliyyatlar',
-                'key'  => 'crm.Permission.Table.Action'
+                'key'  => 'crm.Permission.Label.Action'
             ],
             [
                 'text' => 'Tam səlahiyyət',
-                'key'  => 'crm.Permission.Table.FullAccess'
+                'key'  => 'crm.Permission.Label.FullAccess'
             ],
             [
                 'text' => 'Tam məhdudiyyət',
-                'key'  => 'crm.Permission.Table.NotAccess'
+                'key'  => 'crm.Permission.Label.NotAccess'
             ],
             [
                 'text' => 'Baxış',
-                'key'  => 'crm.Permission.Table.Read'
+                'key'  => 'crm.Permission.Label.Read'
             ],
             [
                 'text' => 'Yarat',
-                'key'  => 'crm.Permission.Table.Create'
+                'key'  => 'crm.Permission.Label.Create'
             ],
             [
                 'text' => 'Düzəliş et',
-                'key'  => 'crm.Permission.Table.Edit'
+                'key'  => 'crm.Permission.Label.Edit'
             ],
             [
                 'text' => 'Sil',
-                'key'  => 'crm.Permission.Table.Delete'
+                'key'  => 'crm.Permission.Label.Delete'
             ],
             [
                 'text' => 'Digrə',
-                'key'  => 'crm.Permission.Table.Other'
-            ],
-            [
-                'text' => 'Adı',
-                'key'  => 'crm.Permission.Label.Name'
+                'key'  => 'crm.Permission.Label.Other'
             ],
             /*
              * Setting

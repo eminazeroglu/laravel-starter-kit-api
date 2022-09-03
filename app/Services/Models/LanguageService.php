@@ -26,14 +26,23 @@ class LanguageService extends BaseModelService
         return response()->json('Not found', 404);
     }
 
+    public function findActiveList($resource = false)
+    {
+        $data = $this->model->query()
+            ->where('is_active', 1)
+            ->oldest('code')
+            ->get();
+        return $resource ? $this->resource($data) : $data;
+    }
+
     public function findPaginateList($resource = false): array
     {
         $data = $this->model->query()
-            ->when(request()->query('q'), function ($q) {
-                return $q->nameLike(request()->query('q'));
+            ->when(request()->query('name'), function ($q) {
+                return $q->nameLike(request()->query('name'));
             })
             ->when(request()->query('code'), function ($q) {
-                return $q->codeLike(request()->query('code'));
+                return $q->where('code', 'like', '%' . request()->query('code') . '%');
             })
             ->latest('id')
             ->paginate(request()->query('limit'));
