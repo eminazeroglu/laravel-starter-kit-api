@@ -111,14 +111,6 @@ class TranslateSeeder extends Seeder
              * Global Datatable
              * */
             [
-                'text' => 'Məlumatların listəsi',
-                'key'  => 'datatable.Head'
-            ],
-            [
-                'text' => 'Məlumat formu',
-                'key'  => 'datatable.FormHead'
-            ],
-            [
                 'text' => 'Hər səhifədə',
                 'key'  => 'datatable.LengthMenu1'
             ],
@@ -127,56 +119,76 @@ class TranslateSeeder extends Seeder
                 'key'  => 'datatable.LengthMenu2'
             ],
             [
-                'text' => 'Məlumat limiti',
-                'key'  => 'datatable.DataLimit'
-            ],
-            [
-                'text' => 'Sütunlar',
-                'key'  => 'datatable.Columns'
-            ],
-            [
                 'text' => 'Göstərilir {from}  -  {to} / Ümumi məlumat sayı {count}',
                 'key'  => 'datatable.PageShow'
             ],
             [
-                'text' => 'Ümumi məlumat sayı {count}',
-                'key'  => 'datatable.TotalData'
+                'text' => 'Filtr menyusu',
+                'key'  => 'datatable.filterTitle'
             ],
             [
-                'text' => '{max} Ümumi məlumatda axtarıdı',
-                'key'  => 'datatable.FilterTotal'
+                'text' => 'Tamam',
+                'key'  => 'datatable.filterConfirm'
             ],
             [
-                'text' => 'Yüklənir',
-                'key'  => 'datatable.Loading'
+                'text' => 'Sıfırla',
+                'key'  => 'datatable.filterReset'
             ],
             [
-                'text' => 'Hazırlanır',
-                'key'  => 'datatable.Processing'
+                'text' => 'Filtr yoxdur',
+                'key'  => 'datatable.filterEmptyText'
             ],
             [
-                'text' => 'Axtarış',
-                'key'  => 'datatable.Search'
+                'text' => 'Bütün elementləri seçin',
+                'key'  => 'datatable.filterCheckall'
             ],
             [
-                'text' => 'Axtardığınıza uyğun məlumat tapılmadı',
-                'key'  => 'datatable.NoRecordFound'
+                'text' => 'Filtrlərdə axtarın',
+                'key'  => 'datatable.filterSearchPlaceholder'
             ],
             [
-                'text' => 'Birinci',
-                'key'  => 'datatable.First'
+                'text' => 'Məlumat yoxdur',
+                'key'  => 'datatable.emptyText'
             ],
             [
-                'text' => 'Sonuncu',
-                'key'  => 'datatable.Last'
+                'text' => 'Hazırkı səhifəni seçin',
+                'key'  => 'datatable.selectAll'
             ],
             [
-                'text' => 'İrəli',
-                'key'  => 'datatable.Next'
+                'text' => 'Hazırkı səhifəni çevirin',
+                'key'  => 'datatable.selectInvert'
             ],
             [
-                'text' => 'Əvvəlki',
-                'key'  => 'datatable.Previous'
+                'text' => 'Bütün məlumatları silin',
+                'key'  => 'datatable.selectNone'
+            ],
+            [
+                'text' => 'Bütün məlumatları seçin',
+                'key'  => 'datatable.selectionAll'
+            ],
+            [
+                'text' => 'çeşid',
+                'key'  => 'datatable.sortTitle'
+            ],
+            [
+                'text' => 'Sətiri genişləndirin',
+                'key'  => 'datatable.expand'
+            ],
+            [
+                'text' => 'Sətiri yığcamlaşdırın',
+                'key'  => 'datatable.collapse'
+            ],
+            [
+                'text' => 'Azalan üzrə çeşidləmək üçün klikləyin',
+                'key'  => 'datatable.triggerDesc'
+            ],
+            [
+                'text' => 'Artan sıralamaq üçün klikləyin',
+                'key'  => 'datatable.triggerAsc'
+            ],
+            [
+                'text' => 'Çeşidləməni ləğv etmək üçün klikləyin',
+                'key'  => 'datatable.cancelSort'
             ],
             /*
              * Global Date
