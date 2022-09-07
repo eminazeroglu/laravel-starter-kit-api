@@ -1012,7 +1012,6 @@ class TranslateSeeder extends Seeder
                 $model->insert($item);
             endif;
         endforeach;
-        Artisan::call('db:seed --class=PermissionSeeder');
         Schema::enableForeignKeyConstraints();
     }
 }

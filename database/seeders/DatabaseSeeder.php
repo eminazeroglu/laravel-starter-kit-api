@@ -15,10 +15,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(LanguageSeeder::class);
-        $this->call(SeoMetaTagSeeder::class);
-        $this->call(SettingSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(MenuSeeder::class);
+        if (app()->environment() === 'local'):
+            $this->call(SeoMetaTagSeeder::class);
+            $this->call(SettingSeeder::class);
+            $this->call(UserSeeder::class);
+            $this->call(MenuSeeder::class);
+        endif;
         $this->call(TranslateSeeder::class);
+        $this->call(PermissionSeeder::class);
     }
 }
