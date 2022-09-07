@@ -94,7 +94,7 @@ class MakeFactoryCommand extends Command
     public function getSourceFilePath(): string
     {
         $name = $this->getSingularClassName($this->argument('name'));
-        return base_path('Database\\Factories') . '\\' . $name . 'Factory.php';
+        return base_path('database/factories') . '/' . $name . 'Factory.php';
     }
 
     public function getSingularClassName($name): string

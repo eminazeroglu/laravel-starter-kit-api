@@ -16,7 +16,7 @@ class MakeModelCommand extends Command
 
     protected $nameSpace = 'App\\Models';
 
-    protected $path = 'App\\Models\\';
+    protected $path = 'app/Models/';
 
     protected $fileName = 'custom-model';
 

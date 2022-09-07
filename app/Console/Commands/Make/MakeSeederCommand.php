@@ -16,7 +16,7 @@ class MakeSeederCommand extends Command
 
     protected $nameSpace = 'Database\\Seeders';
 
-    protected $path = 'Database\\Seeders\\';
+    protected $path = 'database/Seeders/';
 
     public function __construct(Filesystem $files)
     {
@@ -98,7 +98,7 @@ class MakeSeederCommand extends Command
     public function getSourceFilePath(): string
     {
         $name = $this->getSingularClassName($this->argument('name'));
-        return base_path($this->path . '\\' . $name . 'Seeder.php');
+        return base_path($this->path . $name . 'Seeder.php');
     }
 
     public function getSingularClassName($name): string

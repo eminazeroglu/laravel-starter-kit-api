@@ -16,7 +16,7 @@ class MakeResourceCommand extends Command
 
     protected $nameSpace = 'App\\Http\\Resources';
 
-    protected $path = 'App\\Http\\Resources\\';
+    protected $path = 'app/Http/Resources/';
 
     protected $fileName = 'custom-response';
 
@@ -102,9 +102,9 @@ class MakeResourceCommand extends Command
     {
         $name = $this->getSingularClassName($this->argument('name'));
         return [
-            base_path($this->path . $name . '\\' . $name . 'ListResource.php'),
-            base_path($this->path . $name . '\\' . $name . 'TableResource.php'),
-            base_path($this->path . $name . '\\' . $name . 'FormResource.php'),
+            base_path($this->path . $name . '/' . $name . 'ListResource.php'),
+            base_path($this->path . $name . '/' . $name . 'TableResource.php'),
+            base_path($this->path . $name . '/' . $name . 'FormResource.php'),
         ];
     }
 

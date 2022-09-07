@@ -16,7 +16,7 @@ class MakeServiceCommand extends Command
 
     protected $nameSpace = 'App\\Services\\Models';
 
-    protected $path = 'App\\Services\\Models\\';
+    protected $path = 'app/Services/Models/';
 
     protected $fileName = 'custom-service';
 
@@ -101,7 +101,7 @@ class MakeServiceCommand extends Command
     public function getSourceFilePath(): string
     {
         $name = $this->getSingularClassName($this->argument('name'));
-        return base_path($this->path . '\\' . $name . 'Service.php');
+        return base_path($this->path . $name . 'Service.php');
     }
 
     public function getSingularClassName($name): string

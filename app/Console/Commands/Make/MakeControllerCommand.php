@@ -88,7 +88,7 @@ class MakeControllerCommand extends Command
 
     public function getSourceFilePath(): string
     {
-        return base_path('App\\Http\\Controllers\\Api') . '\\' . $this->getSingularClassName($this->argument('name')) . 'Controller.php';
+        return app_path('Http/Controllers/Api') . '/' . $this->getSingularClassName($this->argument('name')) . 'Controller.php';
     }
 
     public function getSingularClassName($name): string

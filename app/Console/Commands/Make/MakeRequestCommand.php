@@ -16,7 +16,7 @@ class MakeRequestCommand extends Command
 
     protected $nameSpace = 'App\\Http\\Requests';
 
-    protected $path = 'App\\Http\\Requests\\';
+    protected $path = 'app/Http/Requests/';
 
     protected $fileName = 'custom-request';
 
