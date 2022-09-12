@@ -47,8 +47,8 @@ class SettingSeeder extends Seeder
                 'key'         => 'logo',
                 'value_field' => json_encode([
                     'logo'             => 'logo.png',
-                    'admin_logo_light' => 'admin-logo-light.png',
-                    'admin_logo_dark'  => 'admin-logo-dark.png',
+                    'admin_logo_light' => 'admin-logo-light.svg',
+                    'admin_logo_dark'  => 'admin-logo-dark.svg',
                     'footer'           => 'footer.png',
                     'mobile'           => 'mobile.png',
                     'favicon'          => 'favicon.png',

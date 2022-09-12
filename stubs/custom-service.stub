@@ -15,8 +15,8 @@ class $CLASS_NAME$Service extends BaseModelService
     public function findPaginateList($resource = false): array
     {
         $data = $this->model->query()
-            ->when(request()->query('q'), function ($q) {
-                return $q->nameLike(request()->query('q'));
+            ->when(request()->query('name'), function ($q) {
+                return $q->nameLike(request()->query('name'));
             })
             ->latest('id')
             ->paginate(request()->query('limit'));

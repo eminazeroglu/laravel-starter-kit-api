@@ -684,10 +684,6 @@ class TranslateSeeder extends Seeder
                 'key'  => 'crm.Sidebar.Permissions'
             ],
             [
-                'text' => 'Səlahiyyət parametirləri',
-                'key'  => 'crm.Sidebar.PermissionsParams'
-            ],
-            [
                 'text' => 'Əsas ayarlar',
                 'key'  => 'crm.Sidebar.Main'
             ],
@@ -852,6 +848,10 @@ class TranslateSeeder extends Seeder
                 'text' => 'Digrə',
                 'key'  => 'crm.Permission.Label.Other'
             ],
+            [
+                'text' => 'Səlahiyyət parametirləri',
+                'key'  => 'crm.Permission.Label.Params'
+            ],
             /*
              * Setting
              * */
@@ -1012,6 +1012,7 @@ class TranslateSeeder extends Seeder
                 $model->insert($item);
             endif;
         endforeach;
+        helper()->cacheRemove('translates');
         Schema::enableForeignKeyConstraints();
     }
 }

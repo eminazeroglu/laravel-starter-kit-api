@@ -165,6 +165,10 @@ class BaseModelService implements BaseModelServiceInterface
 
     public function deleteById($id)
     {
+        $find = $this->model->query()->findOrFail($id);
+        if ($find[$this->photo_field]):
+            (new ImageUploadService())->delete($this->model->getPath(), $find[$this->photo_field]);
+        endif;
         return $this->model->query()->findOrFail($id)->delete();
     }
 
