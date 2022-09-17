@@ -148,6 +148,9 @@ class BaseModelService implements BaseModelServiceInterface
     public function findActiveList()
     {
         $data = $this->model->query()
+            ->when(request()->query('name'), function ($q) {
+                return $q->nameLike(request()->query('name'));
+            })
             ->where('is_active', 1)
             ->latest('id')
             ->get();
