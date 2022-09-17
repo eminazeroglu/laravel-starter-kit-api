@@ -14,17 +14,17 @@ interface BaseModelServiceInterface
 
     public function changeStatus($id, $action = 'is_active');
 
-    public function findById($id, $resource = false);
+    public function findById($id);
 
-    public function findByUrl($url, $resource = false);
+    public function findByUrl($url);
 
-    public function findAll($resource = false);
+    public function findAll();
 
-    public function findPaginateList($resource = false);
+    public function findPaginateList();
 
-    public function findActiveList($resource = false);
+    public function findActiveList();
 
-    public function findDeActiveList($resource = false);
+    public function findDeActiveList();
 
     public function deleteById($id);
 

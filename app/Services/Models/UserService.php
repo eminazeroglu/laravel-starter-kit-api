@@ -79,4 +79,16 @@ class UserService extends BaseModelService
     {
         return $this->model->query()->whereNotIn('email', ['admin@app.com', 'support@app.com'])->delete();
     }
+
+    public function findActiveList()
+    {
+        $data = $this->model->query()
+            ->when(request()->query('fullname'), function ($q) {
+                return $q->fullNameLike(request()->query('fullname'));
+            })
+            ->where('is_active', 1)
+            ->latest('id')
+            ->get();
+        return $this->resource($data);
+    }
 }

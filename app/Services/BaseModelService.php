@@ -110,27 +110,27 @@ class BaseModelService implements BaseModelServiceInterface
         return false;
     }
 
-    public function findById($id, $resource = false)
+    public function findById($id)
     {
         $data = $this->model->query()->findOrFail($id);
-        return $resource ? $this->resource($data, 'one') : $data;
+        return $this->resource($data, 'one');
     }
 
-    public function findByUrl($url, $resource = false)
+    public function findByUrl($url)
     {
         $result = $this->model->query()->where('url', $url)->firstOrFail();
         if (is_array($url))
             $result = $this->model->query()->whereIn('url', $url)->get();
-        return $resource ? $this->resource($result) : $result;
+        return $result;
     }
 
-    public function findAll($resource = false)
+    public function findAll()
     {
         $data = $this->model->query()->get();
-        return $resource ? $this->resource($data, 'list') : $data;
+        return $this->resource($data, 'list');
     }
 
-    public function findPaginateList($resource = false)
+    public function findPaginateList()
     {
         $data = $this->model->query()
             ->when(request()->query('q'), function ($q) {
@@ -145,22 +145,22 @@ class BaseModelService implements BaseModelServiceInterface
         ];
     }
 
-    public function findActiveList($resource = false)
+    public function findActiveList()
     {
         $data = $this->model->query()
             ->where('is_active', 1)
             ->latest('id')
             ->get();
-        return $resource ? $this->resource($data) : $data;
+        return $this->resource($data);
     }
 
-    public function findDeActiveList($resource = false)
+    public function findDeActiveList()
     {
         $data = $this->model->query()
             ->where('is_active', 0)
             ->latest('id')
             ->get();
-        return $resource ? $this->resource($data) : $data;
+        return $this->resource($data);
     }
 
     public function deleteById($id)
