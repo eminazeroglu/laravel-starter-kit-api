@@ -34,7 +34,7 @@ class BaseModelService implements BaseModelServiceInterface
                 $fields[$this->slug] = helper()->createSlug($this->model, array_first((array)request()->translates)[$this->slug_key], $this->slug);
             endif;
         elseif ($this->slug && !$data?->{$this->slug}):
-            $fields[$this->slug] = request()->input($this->slug_key);
+            $fields[$this->slug] = helper()->createSlug($this->model, request()->input($this->slug_key), $this->slug);
         endif;
 
         if ($this->generateCode && !$data?->{$this->code_field}):
