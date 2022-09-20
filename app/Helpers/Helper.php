@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Language;
 use App\Models\Translate;
+use App\Services\System\ImageUploadService;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -335,14 +336,20 @@ class Helper
     /*
      * Multiple Photo
      * */
-    public function multiplePhoto($photos, $path): \Illuminate\Support\Collection
+    public function multiplePhoto($photo, $path): array
     {
-        return collect(json_decode($photos, true))->map(function ($i) use ($path) {
-            return [
-                'name' => $i,
-                'link' => url('uploads/photos/' . $path . '/' . $i)
-            ];
-        });
+        $imageService = new ImageUploadService();
+        $photoView =  $imageService->getPhoto($path, $photo);
+        return [
+            'uid'     => str_random(),
+            'url'     => $photoView['thumbnail'] ?? $photoView['original'] ?? '',
+            'preview' => $photoView['original'] ?? '',
+            'value'   => $photo,
+            'hash'    => $this->enCrypto(json_encode([
+                'name' => $photo,
+                'path' => $path
+            ]))
+        ];
     }
 
     /*

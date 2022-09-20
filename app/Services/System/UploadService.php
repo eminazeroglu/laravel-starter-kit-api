@@ -19,33 +19,25 @@ class UploadService
      * */
     public function setPhoto($request)
     {
-        $file      = $request->file('file');
+        $file      = $request->url;
         $name      = $request->file_name;
         $path      = $request->path ?? 'default';
         $degree    = $request->degree ?? 0;
-        $thumbnail = json_decode($request->thumbnail, true);
+        $thumbnail = $request->thumbnail;
         $folder    = date('d-m-Y');
 
         $image = $this->imageService
             ->setFile($file)
+            ->setBase64(true)
             ->setThumbnail($thumbnail['width'] ?? 200, $thumbnail['height'] ?? 200)
             ->setPath($path . '/' . $folder)
             ->setRotate($degree)
-            ->setWatermark('watermark.png')
             ->setRemoveFile($name ?? null)
             ->upload();
         if ($image):
-            $imagePath = $this->imageService->getPhoto($path . '/' . $folder, $image);
-            return helper()->response('success', [
-                'name' => $folder . '/' . $image,
-                'link' => $imagePath['thumbnail'] ?? null,
-                'hash' => helper()->enCrypto(json_encode([
-                    'name' => $folder . '/' . $image,
-                    'path' => $path
-                ]))
-            ]);
+            return response()->json(helper()->multiplePhoto($folder . '/' .$image, $path));
         endif;
-        return helper()->response('server_error');
+        return response()->json('Server Error', 500);
     }
 
     /*
@@ -63,7 +55,7 @@ class UploadService
                 'location' => $imageName['original']
             ]);
         endif;
-        return helper()->response('server_error');
+        return response()->json('Server Error', 500);
     }
 
     /*
@@ -75,7 +67,7 @@ class UploadService
             'hash' => 'required'
         ]);
         if ($validator->fails()):
-            return helper()->response('error', $validator->errors());
+            return response()->json($validator->errors(), 422);
         endif;
         $hash = json_decode(helper()->deCrypto($request->input('hash')), true);
         $path = $hash['path'] ?? null;
@@ -83,10 +75,10 @@ class UploadService
         if ($path && $name):
             $delete = $this->imageService->delete($path, $name);
             if ($delete):
-                return helper()->response('success');
+                return response()->json('Success');
             endif;
         endif;
-        return helper()->response('server_error');
+        return response()->json('Server Error', 500);
     }
 
     /*
@@ -98,13 +90,13 @@ class UploadService
         if (count($hash) > 0):
             foreach ($hash as $item):
                 $decode = json_decode(helper()->deCrypto($item), true);
-                $path = @$decode['path'];
-                $name = @$decode['name'];
+                $path   = @$decode['path'];
+                $name   = @$decode['name'];
                 if ($path && $name):
                     $this->imageService->delete($path, $name);
                 endif;
             endforeach;
         endif;
-        return helper()->response('success');
+        return response()->json('Success');
     }
 }
