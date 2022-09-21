@@ -246,7 +246,7 @@ class ImageUploadService
              * formata uygun deyeri deyisirik
              * */
             else if ($this->url)
-                $tmp = helperFileGetContent($this->file);
+                $tmp =  helper()->fileGetContent($this->file);
 
             /*
              * Sekilin yuklenece qovluqunu
@@ -321,7 +321,7 @@ class ImageUploadService
              * Sekilin yuklene bilecek formatlarini
              * qeyd edirik
              * */
-            $formats = $this->formats ? $this->formats : ['jpg', 'png', 'gif'];
+            $formats = $this->formats ? $this->formats : ['jpg', 'jpeg', 'png', 'gif'];
             /*
              * Sekilin qeyd etdiyimiz formatlarada olub
              * olmamasini yoxlayiriq
