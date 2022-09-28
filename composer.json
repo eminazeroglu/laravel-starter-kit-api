@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "ext-curl": "*",
         "ext-gd": "*",
+        "ext-http": "*",
         "andreaselia/laravel-api-to-postman": "^1.12",
         "bensampo/laravel-enum": "^5.1",
         "guzzlehttp/guzzle": "^7.2",
@@ -15,7 +16,8 @@
         "laravel/framework": "^9.2",
         "laravel/helpers": "^1.5",
         "laravel/sanctum": "^2.14.1",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "symfony/dom-crawler": "^6.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
