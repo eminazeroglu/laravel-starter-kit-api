@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 use App\Models\Language;
 use App\Models\Translate;
+use App\Services\Models\SeoMetaTagService;
+use App\Services\Models\SettingService;
 use App\Services\System\ImageUploadService;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Carbon;
@@ -358,6 +360,164 @@ class Helper
     public function price($price): string
     {
         return (float)$price . '₼';
+    }
+
+    /*
+     * Meta Tag
+     * */
+    public function metaTag($title = null, $description = null, $image = null, $keywords = null): string
+    {
+        $seo     = [];
+        $mainSeo = [];
+        if (!$title && !$description && !$keywords):
+            $mainSeo = (new SeoMetaTagService())->getUrl('/');
+            $seo     = (new SeoMetaTagService())->getUrl(request()->getRequestUri());
+        endif;
+        $setting     = collect(\App\Models\Setting::whereIn('key', ['general', 'html'])->get());
+        $general     = $setting->where('key', 'general')->first();
+        $html        = $setting->where('key', 'html')->first();
+        $logo        = (new SettingService())->getLogo();
+        $title       = ($title ? $title : optional($seo)->title) ?? optional($mainSeo)->title;
+        $title       = str_limit(strip_tags($title), 60);
+        $description = ($description ? $description : optional($seo)->decsription) ?? optional($mainSeo)->description;
+        $description = str_limit(strip_tags($description), 155);
+        $keywords    = ($keywords ? $keywords : optional($seo)->keywords) ?? optional($mainSeo)->keywords;
+        $image       = $image ?? optional($logo['value'])['wallpaper_path'];
+        $url         = $params['url'] ?? request()->fullUrl();
+        $theme_color = $general->value['theme_color'] ?? null;
+        $favicon     = optional($logo['value'])['favicon_path'];
+
+
+        $result = '<title>' . $title . '</title>';
+        $result .= '<link rel="icon" type="image/*" href="' . $favicon . '" sizes="30x30" />';
+        $result .= '<link rel="image_src" href="' . $image . '" />';
+        $result .= '<link rel="canonical" href="' . $url . '" />';
+        $result .= '<meta name="description" content="' . $description . '" />';
+        if ($keywords)
+            $result .= '<meta name="keywords" content="' . $keywords . '" />';
+        $result .= '<meta property="og:title" content="' . $title . '" />';
+        $result .= '<meta property="og:url" content="' . $url . '" />';
+        $result .= '<meta property="og:description" content="' . $description . '" />';
+        $result .= '<meta property="og:image" content="' . $image . '" />';
+        $result .= '<meta property="og:image:alt" content="' . $title . '" />';
+        $result .= '<meta property="og:type" content="website" />';
+        $result .= '<meta property="og:locale:locale" content="az_Az" />';
+        $result .= '<meta property="og:site_name" content="' . request()->getHost() . '" />';
+        $result .= '<meta property="twitter:title" content="' . $title . '" />';
+        $result .= '<meta property="twitter:url" content="' . $url . '" />';
+        $result .= '<meta property="twitter:description" content="' . $description . '" />';
+        $result .= '<meta property="twitter:image" content="' . $image . '" />';
+        $result .= '<meta property="twitter:card" content="summary_large_image" />';
+        $result .= '<meta property="vk:title" content="' . $title . '" />';
+        $result .= '<meta property="vk:description" content="' . $description . '" />';
+        $result .= '<meta property="vk:image" content="' . $image . '" />';
+        $result .= '<meta itemprop="name" content="' . $title . '" />';
+        $result .= '<meta itemprop="description" content="' . $description . '" />';
+        $result .= '<meta itemprop="image" content="' . $image . '" />';
+        $result .= '<meta name="author" content="Emin Azeroglu | http://azerogluemin.com" />';
+        $result .= '<meta name="theme-color" content="' . $theme_color . '" />';
+        $result .= '<meta name="apple-mobile-web-app-capable" content="yes" />';
+        $result .= '<meta name="apple-touch-fullscreen" content="yes" />';
+        $result .= '<meta name="apple-mobile-web-app-status-bar-style" content="' . $theme_color . '" />';
+        $result .= '<meta name="msapplication-navbutton-color" content="' . $theme_color . '" />';
+        if (optional($seo)->robots)
+            $result .= '<meta name="robots" content="' . optional($seo)->robots . '" />';
+        if (optional($seo)->googlebot)
+            $result .= '<meta name="googlebot" content="' . optional($seo)->googlebot . '" />';
+        if (optional($seo)->yahoobot)
+            $result .= '<meta name="yahoobot" content="' . optional($seo)->yahoobot . '" />';
+        if (optional($seo)->alexabot)
+            $result .= '<meta name="alexabot" content="' . optional($seo)->alexabot . '" />';
+        if (optional($seo)->msnbot)
+            $result .= '<meta name="msnbot" content="' . optional($seo)->msnbot . '" />';
+        if (optional($seo)->dmozbot)
+            $result .= '<meta name="dmozbot" content="' . optional($seo)->dmozbot . '" />';
+        $result .= '<meta name="distribution" content="global" />';
+        $result .= '<meta name="rating" content="General" />';
+        $result .= '<meta name="language" content="Azerbaijani" />';
+        $result .= '<meta name="MobileOptimized" content="width" />';
+        $result .= '<meta name="HandheldFriendly" content="true" />';
+        $result .= $html['value']['head'];
+        return $result;
+    }
+
+    public function findDevice(bool $fullControl = false, bool $platform = false): bool|string
+    {
+        $device = new \Jenssegers\Agent\Agent();
+        $result = 'desktop';
+
+        if ($fullControl):
+            if ($device->isMobile()):
+                $result = 'mobile';
+            elseif ($device->isTablet()):
+                $result = 'tablet';
+            elseif ($device->isPhone()):
+                $result = $device->isPhone();
+            elseif ($device->isRobot()):
+                $result = 'robot';
+            endif;
+
+            if ($platform && $device->platform()):
+                return $device->platform();
+            endif;
+
+        else:
+            if ($device->isMobile()):
+                $result = 'mobile';
+            endif;
+        endif;
+        return $result;
+    }
+
+    public function socialShare($name, $text, $url = null, $media = null): string
+    {
+        $url    = @$url ? $url : request()->fullUrl();
+        $result = '';
+        switch ($name):
+            case 'facebook':
+                $result = 'https://www.facebook.com/sharer/sharer.php?u=' . $url;
+                break;
+            case 'twitter':
+                $result = 'https://twitter.com/intent/tweet?url=' . $url . '&text=' . $text;
+                break;
+            case 'pinterest':
+                $result = 'http://pinterest.com/pin/create/button/?url=' . $url . '&media=' . $media . '&description=' . $text;
+                break;
+            case 'linkedin':
+                $result = 'http://www.linkedin.com/shareArticle?mini=true&url=' . $url . '&title=' . $text;
+                break;
+            case 'viber':
+                $result = 'viber://forward?text=' . $url;
+                break;
+            case 'facebook_messenger':
+                $result = 'fb-messenger://share/?link=' . $url;
+                break;
+            case 'whatsapp':
+                if ($this->findDevice() == 'mobile'):
+                    $result = 'whatsapp://send?text=' . $url;
+                else:
+                    $result = 'https://web.whatsapp.com/send?text=' . $url;
+                endif;
+                break;
+            /* Whatsapp Send Message */
+            case 'whatsapp_send_message':
+                $result = 'https://wa.me/' . $text;
+                break;
+            /* Telegram */
+            case 'telegram':
+                if ($this->findDevice() == 'mobile'):
+                    $result = 'tg://msg?text==' . $url;
+                else:
+                    $result = 'https://telegram.me/share/url?url=' . $url . '&text=' . $text;
+                endif;
+                break;
+        endswitch;
+        return $result;
+    }
+
+    public function paginateTemplate($items)
+    {
+        return $items->appends(request()->query())->links('components.ui.paginate.index');
     }
 
 }

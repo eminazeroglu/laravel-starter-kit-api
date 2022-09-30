@@ -6,6 +6,6 @@ class FrontController extends Controller
 {
     public function index()
     {
-        return 'Page Not Found';
+        return view('pages.index');
     }
 }

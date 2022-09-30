@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
         App\Providers\BlueprintProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
     ],
 
