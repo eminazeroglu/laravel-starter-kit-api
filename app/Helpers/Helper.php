@@ -341,7 +341,7 @@ class Helper
     public function multiplePhoto($photo, $path): array
     {
         $imageService = new ImageUploadService();
-        $photoView =  $imageService->getPhoto($path, $photo);
+        $photoView    = $imageService->getPhoto($path, $photo);
         return [
             'uid'     => str_random(),
             'url'     => $photoView['thumbnail'] ?? $photoView['original'] ?? '',
@@ -518,6 +518,17 @@ class Helper
     public function paginateTemplate($items)
     {
         return $items->appends(request()->query())->links('components.ui.paginate.index');
+    }
+
+    public function menuRemoveParams($menu): array|string|null
+    {
+        return preg_replace('/.?{[a-zA-Z0-9].+/', '', $menu);
+    }
+
+    public function menuIsActive($menu): bool
+    {
+        $current = str_replace('App\Http\Controllers\Web\PageController@', '', \Illuminate\Support\Facades\Route::currentRouteAction());
+        return ($current === 'index' ? '/' : '/' . $current) === helper()->menuRemoveParams($menu->link);
     }
 
 }
