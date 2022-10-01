@@ -26,4 +26,15 @@ class MenuService extends BaseModelService
             'total' => $data->total()
         ];
     }
+
+    public function webRoutes()
+    {
+        $routes = $this->model->query()->active()->get();
+        return $routes->map(function ($i) {
+            return [
+                'route'      => $i->link,
+                'controller' => $i->link === '/' ? 'index' : ltrim($i->link, '/')
+            ];
+        });
+    }
 }
