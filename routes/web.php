@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\FrontController;
+use App\Http\Controllers\Web\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(FrontController::class)->as('web.')->group(function () {
+Route::controller(PageController::class)->as('web.')->group(function () {
     Route::get('/', 'index')->name('index');
 });
