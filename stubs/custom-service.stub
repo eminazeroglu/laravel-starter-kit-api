@@ -7,9 +7,11 @@ use App\Services\BaseModelService;
 
 class $CLASS_NAME$Service extends BaseModelService
 {
+    protected $slug = 'url';
+
     public function __construct()
     {
-        parent::__construct(new $CLASS_NAME$(), '$CLASS_NAME$');
+        parent::__construct(new $CLASS_NAME$());
     }
 
     public function findPaginateList($resource = false): array

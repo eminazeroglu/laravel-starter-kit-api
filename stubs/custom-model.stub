@@ -4,5 +4,11 @@ namespace $NAMESPACE$;
 
 class $CLASS_NAME$ extends BaseModel
 {
-    protected $fillable   = [];
+    protected $fillable   = [
+        'url',
+        'translates',
+        'is_active'
+    ];
+
+    protected $appends = ['name'];
 }
