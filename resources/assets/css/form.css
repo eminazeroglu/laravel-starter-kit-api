@@ -1,0 +1,67 @@
+*:focus {
+    @apply !outline-none !shadow-none !ring-0
+}
+
+.form-label {
+    @apply block mb-2 text-sm font-bold text-gray-900 dark:text-white
+}
+
+.form-element,
+.select2-container .select2-selection--single,
+.select2-container .select2-selection--multiple  {
+    @apply !bg-white !border !border-gray-200 !text-gray-900 !text-sm !rounded-lg focus:!ring-blue-500
+    focus:!border-blue-500 !w-full !p-2.5
+}
+
+.select2-container .select2-selection--single,
+.select2-container .select2-selection--multiple{
+    @apply !min-h-[42px] !py-0 !flex items-center justify-between
+}
+
+.select2-container {
+    @apply !w-full
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    @apply !relative
+}
+
+.select2-results__option {
+    @apply !text-sm
+}
+
+.select2-search--dropdown .select2-search__field {
+    @apply !border-gray-300 !rounded-lg !px-3 !text-sm !h-[32px]
+}
+
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    @apply !bg-primary
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    @apply !bg-primary !border-none !text-xs !py-1 !text-white !mt-0
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    @apply !py-1 !flex !flex-wrap !items-center !px-0 !gap-1
+}
+.select2-container .select2-search--inline {
+    @apply !mt-0 !relative !-top-1
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    @apply !text-white
+}
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    @apply !text-gray-900
+}
+.select2-container--default .select2-search--inline .select2-search__field {
+    @apply !placeholder-gray-900
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    @apply hidden
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    font-family: icomoon!important;
+    @apply relative after:content-["\e930"] after:top-0 after:left-0 after:w-4 after:h-full after:flex after:items-center after:justify-center
+}

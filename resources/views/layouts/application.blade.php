@@ -1,4 +1,6 @@
-@php($v = '1.0.1')
+@php
+    $v = '1.0.1'
+@endphp
 <!doctype html>
 <html lang="{{ helper()->language() }}">
 <head>
@@ -16,12 +18,14 @@
 
 <x-common.navbar/>
 
-<main class="min-h-[100%]">
+<main class="flex-1">
     @yield('content')
 </main>
 
 <x-common.footer/>
 
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/flowbite.js') }}"></script>
 <script src="{{ asset('assets/js/script.js?v=' . $v) }}" async></script>
 @stack('inlineJs')
 </body>

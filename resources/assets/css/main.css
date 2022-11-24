@@ -1,0 +1,30 @@
+.img-cover {
+    @apply w-full h-full object-cover
+}
+.img-contain {
+    @apply w-full h-full object-contain
+}
+
+.dropdown-button {
+    @apply text-white font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center
+}
+
+.dropdown-body {
+    @apply hidden z-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700
+}
+.dropdown-body.block {
+    @apply !block
+}
+
+#toast-container>div:hover, #toast-container>div {
+    @apply !shadow-none
+}
+.toast {
+    @apply !opacity-100 !text-sm
+}
+.toast-info {
+    @apply !bg-green-400
+}
+.toast-error {
+    @apply !bg-red-500
+}

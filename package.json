@@ -15,6 +15,7 @@
     },
     "devDependencies": {
         "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.8",
         "autoprefixer": "^10.4.12",
         "laravel-mix": "^6.0.43",
         "postcss": "^8.4.17",
@@ -25,6 +26,7 @@
         "@tailwindcss/line-clamp": "^0.4.0",
         "animate.css": "^4.1.1",
         "aos": "^3.0.0-beta.6",
+        "flowbite": "^1.5.4",
         "imagehover.css": "^2.0.0"
     }
 }
