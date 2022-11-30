@@ -6,6 +6,20 @@
     @apply block mb-2 text-sm font-bold text-gray-900 dark:text-white
 }
 
+.form-group {
+    @apply w-full;
+}
+
+.form-group--error .form-element,
+.form-group--error .select2-container .select2-selection--single,
+.form-group--error .select2-container .select2-selection--multiple {
+    @apply !border-red-500
+}
+
+.form-error {
+    @apply text-red-500 text-xs font-semibold mt-1
+}
+
 .form-element,
 .select2-container .select2-selection--single,
 .select2-container .select2-selection--multiple  {

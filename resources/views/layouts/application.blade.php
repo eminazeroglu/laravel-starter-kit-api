@@ -26,6 +26,7 @@
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/flowbite.js') }}"></script>
+<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/js/script.js?v=' . $v) }}" async></script>
 @stack('inlineJs')
 </body>

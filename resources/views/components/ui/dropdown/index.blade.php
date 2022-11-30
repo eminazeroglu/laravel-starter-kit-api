@@ -3,6 +3,7 @@
     'default' => '',
     'dropdownClass' => '',
     'dropdownOpen' => true,
+    'hasItem' => true,
     'buttonClass' => ''
 ])
 <button @if($dropdownOpen) data-dropdown-toggle="{{ $id }}" @endif class="dropdown-button {{ $buttonClass ?? '' }}" type="button">
@@ -12,9 +13,15 @@
     @endif
 </button>
 @if($dropdownOpen)
-    <div id="{{ $id }}" {{ $attributes->merge(['class' => 'dropdown-body ' . $dropdownClass]) }}>
-        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+    @if($hasItem)
+        <div id="{{ $id }}" {{ $attributes->merge(['class' => 'dropdown-body ' . $dropdownClass]) }}>
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+                {{ $slot }}
+            </ul>
+        </div>
+    @else
+        <div id="{{ $id }}" {{ $attributes->merge(['class' => 'dropdown-body ' . $dropdownClass]) }}>
             {{ $slot }}
-        </ul>
-    </div>
+        </div>
+    @endif
 @endif

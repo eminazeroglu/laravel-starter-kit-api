@@ -1,6 +1,8 @@
+@props([
+    'value' => ''
+])
 <div class="w-full form-group">
-    <input
-            type="text"
+    <textarea
             {{ $attributes->merge(['class' => 'form-element']) }}
-    >
+    >{{ $value }}</textarea>
 </div>
