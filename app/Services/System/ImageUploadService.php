@@ -22,7 +22,7 @@ class ImageUploadService
     private $url;
     private $quality;
     private $size;
-    private $watermark;
+    private $watermark   = [];
     private $thumbnail;
     private $medium;
     private $large;
@@ -142,11 +142,13 @@ class ImageUploadService
     public function setWatermark(string $name, int $resize = 60, string $position = 'center', int $x = 0, $y = 0)
     {
         $this->watermark = [
-            'name'     => $name,
-            'resize'   => $resize,
-            'position' => $position,
-            'x'        => $x,
-            'y'        => $y,
+            ...$this->watermark, [
+                'name'     => $name,
+                'resize'   => $resize,
+                'position' => $position,
+                'x'        => $x,
+                'y'        => $y,
+            ]
         ];
         return $this;
     }
@@ -246,7 +248,7 @@ class ImageUploadService
              * formata uygun deyeri deyisirik
              * */
             else if ($this->url)
-                $tmp =  helper()->fileGetContent($this->file);
+                $tmp = helper()->fileGetContent($this->file);
 
             /*
              * Sekilin yuklenece qovluqunu
@@ -346,14 +348,16 @@ class ImageUploadService
                  * Sekile uzerine watermark yazmaq istredikde
                  * asagdaki kodlar isleyir
                  * */
-                if ($this->watermark && $this->watermark['name']):
-                    $resize         = round($width * ((100 - $this->watermark['resize']) / 100), 2);
-                    $watermark_path = public_path('/uploads/photos/setting/' . $this->watermark['name']);
-                    $watermark      = Image::make($watermark_path);
-                    $watermark      = $watermark->resize($resize, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
-                    $Image          = $Image->insert($watermark, $this->watermark['position'], $this->watermark['x'], $this->watermark['y']);
+                if (count($this->watermark) > 0):
+                    foreach ($this->watermark as $wm):
+                        $resize         = round($width * ((100 - $wm['resize']) / 100), 2);
+                        $watermark_path = public_path('/uploads/photos/setting/' . $wm['name']);
+                        $watermark      = Image::make($watermark_path);
+                        $watermark      = $watermark->resize($resize, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                        $Image          = $Image->insert($watermark, $wm['position'], $wm['x'], $wm['y']);
+                    endforeach;
                 endif;
                 $Image = $Image->resize($width, $height);
                 if ($this->driver == 's3'):
@@ -496,7 +500,7 @@ class ImageUploadService
         /*
          * Gelen adi . simvolundan parcalayiri
          * */
-        $nameExplode = @explode('.', $name);
+        $nameExplode = @explode('.', $name ?? '');
         /*
          * Bu method vasitesi ile uzantiyi
          * cixaridiq
@@ -524,12 +528,12 @@ class ImageUploadService
         /*
          * Sub Folder
          * */
-        $sub_folder = preg_match('/\d{2}-\d{2}-\d{4}/', $name);
+        $sub_folder = preg_match('/\d{2}-\d{2}-\d{4}/', $name ?? '');
         if ($sub_folder) {
-            preg_match('/\d{2}-\d{2}-\d{4}/', $name, $date);
+            preg_match('/\d{2}-\d{2}-\d{4}/', $name ?? '', $date);
             $date       = $date[0];
             $stringPath .= '/' . $date;
-            $onlyName   = ltrim(preg_replace('/\d{2}-\d{2}-\d{4}/', null, $onlyName), '/');
+            $onlyName   = ltrim(preg_replace('/\d{2}-\d{2}-\d{4}/', '', $onlyName), '/');
         }
 
         /*

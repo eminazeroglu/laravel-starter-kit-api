@@ -8,8 +8,10 @@ class UserObserver
 {
     public function creating(User $model)
     {
-        $model->user_name = helper()->createSlug($model, $model->name . ' ' . $model->surname, 'user_name');
-        $model->user_code = 'CTA' . helper()->uniqueNumber($model, 6, 'user_code');
+        if (!$model->user_name)
+            $model->user_name = helper()->createSlug($model, $model->name . ' ' . $model->surname, 'user_name');
+        if (!$model->user_code)
+            $model->user_code = 'ES-' . helper()->uniqueNumber($model, 6, 'user_code');
     }
 
     public function saving(User $model)
