@@ -7,7 +7,7 @@ namespace App\Services\Payment;
  *
  * */
 
-use App\Events\Payment\PaymentSuccessEvent;
+use App\Events\PaymentSuccessEvent;
 use App\Services\System\LogService;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
@@ -16,8 +16,8 @@ class PulPalService
 {
     /*
     * Test Ucun: https://merchant-dev.pulpal.az
-    * email:
-    *
+    * email: senedtap.test@mail.ru
+    * password: UryIOddKx23*!@#
     * */
     /*
      * ###############################################
@@ -27,9 +27,9 @@ class PulPalService
      * Production: https://merchant.pulpal.az
      * ###############################################
      * Test Kart
-     * PAN: 4169741370562587
-     * date: 01/22
-     * CVV: 544
+     * PAN: 4169733213495869
+     * date: 05/23
+     * CVV: 447
      * ###############################################
      * */
     protected $key        = '$2y$10$deSuhU5gDk6LSsLcyF0oJO77UbbHemZlcgpaMZt0nmaq1zOpWwtxW';
@@ -157,7 +157,7 @@ class PulPalService
             return helper()->response('error', $validator->errors());
         endif;
 
-        $url = $this->setMerchantId(482)
+        $url = $this->setMerchantId(802)
             ->getUrl(['ids' => $request->ids, 'auth_key' => $request->key], $request->price, 'SenedTap.Az');
         return helper()->response('success', $url);
     }
@@ -187,6 +187,7 @@ class PulPalService
          * edilecek emeliyyatlari yaziriq
          * */
         if ($nonce > 0 && $my_signature == $signature):
+            LogService::payment('payment_key:' . $external['payment_key'] . ' --- price:' . $price);
             /*
              * Bu hissede odenis tamamlandiqdan sonra
              * olacaq hadiseleri (events) yaziriq
@@ -217,7 +218,6 @@ class PulPalService
      * */
     public function redirect(): string
     {
-        $request = request()->query('ExternalId');
-        return route('web.index');
+        return route('web.profile');
     }
 }
