@@ -19,7 +19,7 @@ class Helper
      * */
     public function language()
     {
-        $lang = request()->header('content-language') ?? 'az';
+        $lang = request()->header('content-language') ?? session()->get('lang');
         if ($lang):
             return $lang;
         endif;
@@ -243,30 +243,19 @@ class Helper
     /*
      * Date
      * */
-    public function date($date, $format = 'month_string_with_clock', $length = null): Carbon|string
+    public function date($date): Carbon|string
     {
-        $result = $date = Carbon::createFromTimeString($date);
-        $day    = $date->day;
-        $month  = $date->month;
-        $year   = $date->year;
-        $clock  = ($date->hour < 10 ? '0' . $date->hour : $date->hour) . ':' . ($date->minute < 10 ? '0' . $date->minute : $date->minute);
-        if ($format == 'string'):
-            $nowDate = now();
-            $difDate = $nowDate->day - $date->day;
-            if ($difDate == 0)
-                $result = $this->translate('date.Day.ToDay') . ', ' . $clock;
-            else if ($difDate == 1)
-                $result = $this->translate('date.Day.Yesterday') . ', ' . $clock;
-            else
-                $result = $day . ' ' . $this->monthByCode($month, $length) . ' ' . $year;
-        elseif ($format == 'month_string'):
-            $result = $day . ' ' . $this->monthByCode($month, $length) . ' ' . $year . ' ' . $clock;
-        elseif ($format == 'month_string_with_clock'):
-            $result = $day . ' ' . $this->monthByCode($month, $length) . ' ' . $year;
-        elseif ($format):
-            $result = $date->format($format);
+        $result    = $date = Carbon::createFromTimeString($date);
+        $today     = $result->isToday();
+        $yesterday = $result->isYesterday();
+
+        if ($today):
+            return $this->translate('date.ToDay') . ', ' . $result->format('H:i');
+        elseif ($yesterday):
+            return $this->translate('date.Yesterday') . ', ' . $result->format('H:i');
         endif;
-        return $result;
+
+        return $result->translatedFormat('d M Y');
     }
 
     /*
@@ -359,7 +348,7 @@ class Helper
      * */
     public function price($price): string
     {
-        return (float)$price . '₼';
+        return $price . ' ₼';
     }
 
     /*
@@ -373,14 +362,16 @@ class Helper
             $mainSeo = (new SeoMetaTagService())->getUrl('/');
             $seo     = (new SeoMetaTagService())->getUrl(request()->getRequestUri());
         endif;
-        $setting     = collect(\App\Models\Setting::whereIn('key', ['general', 'html'])->get());
-        $general     = $setting->where('key', 'general')->first();
-        $html        = $setting->where('key', 'html')->first();
-        $logo        = (new SettingService())->getLogo();
+        $setting = collect(\App\Models\Setting::whereIn('key', ['general', 'html'])->get());
+        session()->put('setting_general_html', $setting);
+        $general = session()->get('setting_general_html')->where('key', 'general')->first();
+        $html    = session()->get('setting_general_html')->where('key', 'html')->first();
+        $logo    = (new SettingService())->getLogo();
+        session()->put('setting_logo', $logo);
         $title       = ($title ? $title : optional($seo)->title) ?? optional($mainSeo)->title;
         $title       = str_limit(strip_tags($title), 60);
         $description = ($description ? $description : optional($seo)->decsription) ?? optional($mainSeo)->description;
-        $description = str_limit(strip_tags($description), 155);
+        $description = $description ? str_limit(strip_tags($description), 155) : '';
         $keywords    = ($keywords ? $keywords : optional($seo)->keywords) ?? optional($mainSeo)->keywords;
         $image       = $image ?? optional($logo['value'])['wallpaper_path'];
         $url         = $params['url'] ?? request()->fullUrl();
@@ -530,5 +521,4 @@ class Helper
         $current = str_replace('App\Http\Controllers\Web\PageController@', '', \Illuminate\Support\Facades\Route::currentRouteAction());
         return ($current === 'index' ? '/' : '/' . $current) === helper()->menuRemoveParams($menu->link);
     }
-
 }
